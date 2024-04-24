@@ -1,0 +1,337 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #e0c5c5;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.69);
+  border-radius: 20px;
+}
+
+.ft {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 1000;
+  font-size: 35px;
+  line-height: 60px;
+  padding-left: 10px;
+}
+
+.text {
+  font-style: normal;
+  font-weight: bold;
+  line-height: 50px;
+}
+
+.label {
+  font-weight: 400;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #e1dada;
+  z-index: 9999;
+}
+
+.logo {
+  margin-left: 50px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.sdash {
+  font-family: "Poppins", sans-serif;
+  padding-left: 10px;
+  list-style: none;
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.icons {
+  display: inline-block;
+  margin-right: 30px;
+  padding-left: 150px;
+}
+
+/* Dashboard */
+.dasht {
+  position: absolute;
+  width: 500px;
+  height: 23px;
+  left: 48px;
+  top: 72px;
+
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 100;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #000000;
+
+  opacity: 0.5;
+}
+
+.line {
+  position: absolute;
+  width: 1180px;
+  height: 0px;
+  left: 50px;
+  top: 105px;
+
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.text-center {
+  font-family: "Poppins", sans-serif;
+}
+
+.book {
+  position: absolute;
+  width: 164px;
+  height: 48px;
+  left: 585px;
+  top: 770px;
+}
+
+.reserve {
+  position: absolute;
+  width: 164px;
+  height: 48px;
+  left: 585px;
+  top: 1100px;
+}
+
+.rounded {
+  margin-top: 135px;
+  width: 350px;
+  height: 350px;
+}
+
+footer {
+  left: 585px;
+  top: 2000px;
+  text-align: center;
+  padding: 3px;
+  background-color: rgb(32, 21, 21);
+  color: white;
+}
+
+#homeboxes:after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+}
+
+#footer,
+.push {
+  height: 80px; /* .push must be the same height as .footer */
+}
+
+.container ul li {
+  list-style: none;
+  margin: 0 10px;
+}
+
+.container ul li a:hover {
+  color: var(--text-dark);
+}
+
+.container ul li a {
+  text-decoration: none;
+  color: var(--text-light);
+}
+
+.form-label {
+  margin-left: 10px;
+  font-weight: 400;
+}
+.form-input {
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown button {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown a {
+  display: block;
+  color: black;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+
+.dropdown .content {
+  display: none;
+  position: absolute;
+  background-color: rgba(231, 224, 224, 0.984);
+  min-width: 100px;
+  box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
+}
+
+.dropdown:hover .content {
+  display: block;
+}
+
+.dropdown:hover button {
+  background-color: hsl(0, 0%, 60%);
+}
+
+.dropdown a:hover {
+  background-color: hsl(0, 0%, 90%);
+}
+
+.bu {
+  margin-left: 350px;
+}
+
+.bu button {
+  text-decoration: none;
+}
+
+.user {
+  text-decoration: none;
+  color: black;
+}
+
+.profile-card {
+  top: 50px;
+  left: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+  background: #fff;
+  border-radius: 24px;
+  padding: 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.profile-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 36%;
+  width: 100%;
+  border-radius: 24px 24px 0 0;
+  background-color: #e3b4b4;
+}
+.image {
+  position: relative;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: #e3b4b4;
+  padding: 3px;
+  margin-bottom: 10px;
+}
+
+.edit-icon {
+  color: grey;
+  position: absolute;
+  top: 118px;
+  right: 10px;
+}
+
+.image .profile-img span {
+  margin-left: 50px;
+}
+
+.image .profile-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #fff;
+}
+.profile-card .text-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+}
+.text-data .name {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+}
+.text-data .job {
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+.profile-card .media-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+.media-buttons .link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  margin: 0 8px;
+  background-color: #e3b4b4;
+  text-decoration: none;
+}
+.profile-card .buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+.buttons .button {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
+  border-radius: 24px;
+  margin: 0 10px;
+  padding: 8px 24px;
+  background-color: #4070f4;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.buttons .button:hover {
+  background-color: #0e4bf1;
+}
+.profile-card .analytics {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}

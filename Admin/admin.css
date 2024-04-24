@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap");
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #e1dada;
+  z-index: 9999;
+}
+
+.logo {
+  margin-left: 40px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.sdash {
+  font-family: "Poppins", sans-serif;
+  padding-left: 10px;
+  list-style: none;
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.dasht {
+  position: absolute;
+  width: 500px;
+  height: 23px;
+  left: 230px;
+  top: 72px;
+
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 100;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #000000;
+
+  opacity: 0.5;
+}
+
+.line {
+  position: absolute;
+  width: 1000px;
+  height: 0px;
+  left: 230px;
+  top: 105px;
+
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown button {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown a {
+  display: block;
+  color: black;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+
+.dropdown .content {
+  display: none;
+  position: absolute;
+  background-color: rgba(231, 224, 224, 0.984);
+  min-width: 100px;
+  box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
+}
+
+.dropdown:hover .content {
+  display: block;
+}
+
+.dropdown:hover button {
+  background-color: hsl(0, 0%, 60%);
+}
+
+.dropdown a:hover {
+  background-color: hsl(0, 0%, 90%);
+}
+
+.dashboard {
+  max-width: 90%;
+  min-height: 50px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin-left: 50px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #555;
+}
+
+.card span {
+  font-size: 15px;
+}
+
+.paid {
+  font-weight: 500;
+}
+
+.pending {
+  font-weight: 500;
+}
+
+.card {
+  transition: all 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.15s);
+}
