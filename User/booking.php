@@ -105,16 +105,20 @@ session_start();
       ">Rooms</p>
     </div>
 
-    <form action="add_booking.php" method="post">
-        <div class="container" style="margin-top: 80px;">
-            <div class="popular__grid">
-                <?php
-                // Corrected the connection script inclusion
-                require_once '../config.php';
-                $query = $conn->query("SELECT * FROM `rooms` ORDER BY `price` ASC") or die(mysqli_error($conn)); // Used mysqli_error() instead of mysql_error()
-                while ($fetch = $query->fetch_assoc()) { // Changed fetch_array() to fetch_assoc()
-                ?>
-                    <div class="popular__card">
+    <div class="container" style="margin-top: 80px;">
+        <div class="popular__grid">
+            <?php
+            require_once '../config.php';
+
+            // Fetch data from the rooms table
+            $query = $conn->query("SELECT * FROM `rooms` ORDER BY `price` ASC") or die(mysqli_error($conn));
+
+            // Loop through each fetched row
+            while ($fetch = $query->fetch_assoc()) {
+                // Output the fetched data
+            ?>
+                <div class="col-md-4">
+                    <div class="popular__card" style="width: 350px; height: 350px;">
                         <img src="../Images/Bed1.jpg" alt="popular hotel" />
                         <div class="popular__content">
                             <div class="popular__card__header">
@@ -122,71 +126,89 @@ session_start();
                                 <h4 id="price"><?php echo $fetch['price'] ?></h4>
                             </div>
                             <p id="room_num"><?php echo $fetch['room_num'] ?></p>
-                            <button style="width: 150px" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button style="width: 150px" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal_<?php echo $fetch['room_id']; ?>">
                                 Check Now
                             </button>
-                            </a>
                         </div>
                     </div>
-                <?php
-                }
-                ?>
+                    <!-- Modal for each room -->
+                    <div class="modal fade" id="exampleModal_<?php echo $fetch['room_id']; ?>" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Reservation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="add_booking.php" method="post">
+                                        <!-- Hidden inputs to pass room data -->
+                                        <input type="hidden" name="room_id" value="<?php echo $fetch['room_id']; ?>">
+                                        <input type="hidden" name="room_type" value="<?php echo $fetch['room_type']; ?>">
+                                        <input type="hidden" name="price" value="<?php echo $fetch['price']; ?>">
+                                        <input type="hidden" name="room_num" value="<?php echo $fetch['room_num']; ?>">
 
-                <div class="alert">
-                    <?php if (isset($_SESSION['success_message'])) : ?>
-                        <div class="alert alert-success" role="alert">
-                            <?= $_SESSION['success_message'] ?>
-                        </div>
-                        <?php unset($_SESSION['success_message']); ?>
-                    <?php endif; ?>
-
-                    <?php if (isset($_SESSION['error_message'])) : ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?= $_SESSION['error_message'] ?>
-                        </div>
-                        <?php unset($_SESSION['error_message']); ?>
-                    <?php endif; ?>
-                </div>
-
-                <div class="modal fade" id="exampleModal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Reservation</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="contact" class="col-form-label">Contact Information:</label>
-                                    <input type="number" name="contact_num" class="form-control">
+                                        <!-- Additional input fields for reservation -->
+                                        <div class="mb-3">
+                                            <label for="contact" class="col-form-label">Contact Information:</label>
+                                            <input type="number" name="contact_num" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="contact" class="col-form-label">Payment Method:</label>
+                                            <select class="form-control" name="payment_method" required>
+                                                <option value="" selected="" disabled="">Select Payment</option>
+                                                <option value="G Cash">G Cash</option>
+                                                <option value="E-Wallet">E-Wallet</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="Credit/Debit Card">Credit/Debit Card</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="date" class="col-form-label">Check In:</label>
+                                            <input type="date" name="checkin" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="time" class="col-form-label">Time</label>
+                                            <input type="time" name="checkin_time" class="form-control"></input>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="date" class="col-form-label">Check out</label>
+                                            <input type="date" name="checkout" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="time" class="col-form-label">Time</label>
+                                            <input type="time" name="checkout_time" class="form-control"></input>
+                                        </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="date" class="col-form-label">Check In:</label>
-                                    <input type="date" name="checkin" class="form-control">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="time" class="col-form-label">Time</label>
-                                    <input type="time" name="checkin_time" class="form-control"></input>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="date" class="col-form-label">Check out</label>
-                                    <input type="date" name="checkout" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="time" class="col-form-label">Time</label>
-                                    <input type="time" name="checkout_time" class="form-control"></input>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php
+            }
+            ?>
         </div>
-    </form>
+    </div>
+
+    <div class="alert">
+        <?php if (isset($_SESSION['success_message'])) : ?>
+            <div class="alert alert-success" role="alert">
+                <?= $_SESSION['success_message'] ?>
+            </div>
+            <?php unset($_SESSION['success_message']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error_message'])) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $_SESSION['error_message'] ?>
+            </div>
+            <?php unset($_SESSION['error_message']); ?>
+        <?php endif; ?>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

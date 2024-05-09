@@ -75,145 +75,181 @@
         </div>
     </nav>
 
-    <div class="dasht">
-        <h3>Dashboard</h3>
-    </div>
-    <div class="line">
-        <div class="text-center">
-            <p style="margin-top: 10px">Best Rooms</p>
-        </div>
-    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="admin-dashboard.php">
+                            <button class="btn btn-block text-left">
+                                Dashboard
+                            </button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="user-management.php">
+                            <button class="btn btn-block text-left">
+                                User-management
+                            </button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="room-management.php">
+                            <button class="btn btn-block text-left">
+                                Room Management
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
+                <div class="row">
+                    <div class="container-fluid">
+                        <div class="dasht">
+                            <h3>Dashboard</h3>
+                        </div>
+                        <div class="line">
+                            <div class="text-center">
+                                <p style="margin-top: 10px">Best Rooms</p>
+                            </div>
+                        </div>
 
-    <div class="container" style="margin-top: 80px;">
-        <div class="popular__grid">
-            <div class="popular__card">
-                <img src="../Images/Bed1.jpg" alt="popular hotel" />
-                <div class="popular__content">
-                    <div class="popular__card__header">
-                        <h4>Two Beds with Cr</h4>
-                        <h4>P499</h4>
+                        <div class="container" style="margin-top: 80px;">
+                            <div class="popular__grid">
+                                <div class="popular__card">
+                                    <img src="../Images/Bed1.jpg" alt="popular hotel" />
+                                    <div class="popular__content">
+                                        <div class="popular__card__header">
+                                            <h4>Two Beds with Cr</h4>
+                                            <h4>P499</h4>
+                                        </div>
+                                        <p>Room 1</p>
+                                        <a href="booking.php">
+                                            <button style="width: 150px" type="submit" class="btn btn-success">
+                                                Book Now
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="popular__card">
+                                    <img src="../Images/Back2.jpg" alt="popular hotel" />
+                                    <div class="popular__content">
+                                        <div class="popular__card__header">
+                                            <h4>Two Beds with Cr</h4>
+                                            <h4>P499</h4>
+                                        </div>
+                                        <p>Room 1</p>
+                                        <a href="booking.php">
+                                            <button style="width: 150px" type="submit" class="btn btn-success">
+                                                Book Now
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="popular__card">
+                                    <img src="../Images/Bed3.jpg" alt="popular hotel" />
+                                    <div class="popular__content">
+                                        <div class="popular__card__header">
+                                            <h4>Two Beds with Cr</h4>
+                                            <h4>P499</h4>
+                                        </div>
+                                        <p>Room 1</p>
+                                        <a href="booking.php">
+                                            <button style="width: 150px" type="submit" class="btn btn-success">
+                                                Book Now
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container" style="margin-top: 80px;">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">Reservation History</div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Number</th>
+                                                <th>Date</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Two Bed</td>
+                                                <td>1</td>
+                                                <td>Feb 14, 2024</td>
+                                                <td>500.00</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Two Bed</td>
+                                                <td>2</td>
+                                                <td>Feb 14, 2024</td>
+                                                <td>500.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container" style="margin-top: 20px">
+                            <div class="col-md-8">
+                                <div class="card" style="left: 380px; top: -200px;">
+                                    <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Number</th>
+                                                <th>Date</th>
+                                                <th>Arrival</th>
+                                                <th>Departure</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Two Bed</td>
+                                                <td>1</td>
+                                                <td>Feb 14, 2024</td>
+                                                <td>9:00am - 12:00pm</td>
+                                                <td>February 15, 2024 9:00am - 10:00am</td>
+                                                <td>500.00</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Two Bed</td>
+                                                <td>2</td>
+                                                <td>Feb 14, 2024</td>
+                                                <td>9:00am - 12:00pm</td>
+                                                <td>February 15, 2024 9:00am - 10:00am</td>
+                                                <td>500.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p>Room 1</p>
-                    <a href="booking.php">
-                        <button style="width: 150px" type="submit" class="btn btn-success">
-                            Book Now
-                        </button>
-                    </a>
                 </div>
-            </div>
-            <div class="popular__card">
-                <img src="../Images/Back2.jpg" alt="popular hotel" />
-                <div class="popular__content">
-                    <div class="popular__card__header">
-                        <h4>Two Beds with Cr</h4>
-                        <h4>P499</h4>
-                    </div>
-                    <p>Room 1</p>
-                    <a href="booking.php">
-                        <button style="width: 150px" type="submit" class="btn btn-success">
-                            Book Now
-                        </button>
-                    </a>
-                </div>
-            </div>
-            <div class="popular__card">
-                <img src="../Images/Bed3.jpg" alt="popular hotel" />
-                <div class="popular__content">
-                    <div class="popular__card__header">
-                        <h4>Two Beds with Cr</h4>
-                        <h4>P499</h4>
-                    </div>
-                    <p>Room 1</p>
-                    <a href="booking.php">
-                        <button style="width: 150px" type="submit" class="btn btn-success">
-                            Book Now
-                        </button>
-                    </a>
-                </div>
-            </div>
+            </main>
         </div>
     </div>
 
 
-    <div class="container" style="margin-top: 80px;">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Reservation History</div>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Number</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Two Bed</td>
-                            <td>1</td>
-                            <td>Feb 14, 2024</td>
-                            <td>500.00</td>
-                        </tr>
-
-                        <tr>
-                            <td>Two Bed</td>
-                            <td>2</td>
-                            <td>Feb 14, 2024</td>
-                            <td>500.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="container" style="margin-top: 20px">
-        <div class="col-md-8">
-            <div class="card" style="left: 380px; top: -200px;">
-                <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Number</th>
-                            <th>Date</th>
-                            <th>Arrival</th>
-                            <th>Departure</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Two Bed</td>
-                            <td>1</td>
-                            <td>Feb 14, 2024</td>
-                            <td>9:00am - 12:00pm</td>
-                            <td>February 15, 2024 9:00am - 10:00am</td>
-                            <td>500.00</td>
-                        </tr>
-
-                        <tr>
-                            <td>Two Bed</td>
-                            <td>2</td>
-                            <td>Feb 14, 2024</td>
-                            <td>9:00am - 12:00pm</td>
-                            <td>February 15, 2024 9:00am - 10:00am</td>
-                            <td>500.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- <div class="book">
+    <div class="book">
         <a href="booking.php">
             <button style="width: 100px" type="submit" class="btn btn-success">
                 Book Now
             </button>
         </a>
-    </div> -->
+    </div>
     <footer class="footer" id="contact">
         <div class="section__container footer__container">
             <div class="footer__col">

@@ -20,6 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Retrieve form data
+    $room_id = $_POST['room_id'];
+    $room_type = $_POST['room_type'];
+    $price = $_POST['price'];
+    $room_num = $_POST['room_num'];
+    $payment_method = $_POST['payment_method'];
     $contact_num = $_POST['contact_num'];
     $checkin = $_POST['checkin'];
     $checkin_time = $_POST['checkin_time'];
@@ -38,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         // Insert new reservation into the database
-        $sql = "INSERT INTO reservation (user_id, username, contact_num, checkin, checkin_time, checkout, checkout_time)
-                VALUES ('$id', '$username', '$contact_num', '$checkin', '$checkin_time', '$checkout', '$checkout_time')";
+        $sql = "INSERT INTO reservation (user_id, username, room_id, room_type, room_num, price, payment_method, contact_num, checkin, checkin_time, checkout, checkout_time)
+                VALUES ('$id', '$username', '$room_id', '$room_type', '$room_num', '$price', '$payment_method', '$contact_num', '$checkin', '$checkin_time', '$checkout', '$checkout_time')";
 
         if ($conn->query($sql) === TRUE) {
             // New record created successfully, set success message and redirect
