@@ -1,3 +1,24 @@
+<?php
+
+session_start();
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "malaybalay_hotel_reservation";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM reservation";
+$result = $conn->query($sql);
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -21,9 +42,6 @@
             <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
                 <img class="logo" src="../Images/logo.png" alt="logo" /><span class="sdash">
                     <?php
-                    // Assuming you have started the session
-                    session_start();
-
                     // Check if the user is logged in
                     if (isset($_SESSION['username'])) {
                         // Fetch the username from the session or database
@@ -105,12 +123,12 @@
             <main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
                 <div class="row">
                     <div class="container-fluid">
-                        <div class="dasht">
+                        <div class="dasht" style="left: 250px;">
                             <h3>Dashboard</h3>
                         </div>
-                        <div class="line">
-                            <div class="text-center">
-                                <p style="margin-top: 10px">Best Rooms</p>
+                        <div class="line" style="left: 250px; width: 1000px">
+                            <div class="text-center" style="right: 50px;">
+                                <p style="margin-top: 10px;">Best Rooms</p>
                             </div>
                         </div>
 
@@ -198,57 +216,71 @@
                             </div>
                         </div>
 
-                        <div class="container" style="margin-top: 20px">
-                            <div class="col-md-8">
-                                <div class="card" style="left: 380px; top: -200px;">
-                                    <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Type</th>
-                                                <th>Number</th>
-                                                <th>Date</th>
-                                                <th>Arrival</th>
-                                                <th>Departure</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Two Bed</td>
-                                                <td>1</td>
-                                                <td>Feb 14, 2024</td>
-                                                <td>9:00am - 12:00pm</td>
-                                                <td>February 15, 2024 9:00am - 10:00am</td>
-                                                <td>500.00</td>
-                                            </tr>
+                        <?php
+                        // Check if there are any reservations for the logged-in user
+                        $sql = "SELECT * FROM reservation WHERE username = '$username'";
+                        $result = $conn->query($sql);
 
-                                            <tr>
-                                                <td>Two Bed</td>
-                                                <td>2</td>
-                                                <td>Feb 14, 2024</td>
-                                                <td>9:00am - 12:00pm</td>
-                                                <td>February 15, 2024 9:00am - 10:00am</td>
-                                                <td>500.00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                        if ($result) {
+                            if ($result->num_rows > 0) {
+                                // Display reservations
+                        ?>
+                                <div class="container" style="margin-top: 20px">
+                                    <div class="col-md-8">
+                                        <div class="card" style="left: 340px; top: -248px;">
+                                            <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Type</th>
+                                                        <th>Number</th>
+                                                        <th>Arrival</th>
+                                                        <th>Departure</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    // Fetch and display each reservation
+                                                    while ($row = $result->fetch_assoc()) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $row['room_type']; ?></td>
+                                                            <td><?php echo $row['room_num']; ?></td>
+                                                            <td><?php echo $row['checkin']; ?></td>
+                                                            <td><?php echo $row['checkout']; ?></td>
+                                                            <td><?php echo $row['price']; ?></td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                        <?php
+                            } else {
+                                // If no reservations found for the logged-in user
+                                echo "No reservations found for this user.";
+                            }
+                        } else {
+                            // Error handling
+                            echo "Error: " . $conn->error;
+                        }
+                        ?>
+
+                        <div class="book">
+                            <a href="booking.php">
+                                <button style="width: 100px" type="submit" class="btn btn-success">
+                                    Book Now
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
             </main>
         </div>
-    </div>
-
-
-    <div class="book">
-        <a href="booking.php">
-            <button style="width: 100px" type="submit" class="btn btn-success">
-                Book Now
-            </button>
-        </a>
     </div>
     <footer class="footer" id="contact">
         <div class="section__container footer__container">

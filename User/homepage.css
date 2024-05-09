@@ -111,6 +111,7 @@ body {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.5rem;
+  font-family: "Poppins", sans-serif;
 }
 
 .popular__card__header h4 {

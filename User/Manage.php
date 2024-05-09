@@ -74,131 +74,166 @@
         </div>
     </nav>
 
-    <div class="dasht">
-        <h3>Reservation Management</h3>
-    </div>
-    <div class="line"></div>
-
-    <div class="container" style="margin-top: 100px">
-        <div class="card w-100">
-            <div class="card-body">
-                <h5>My Recent Reservation</h5>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Type</th>
-                                <th>Number</th>
-                                <th>Date</th>
-                                <th>Arrival</th>
-                                <th>Departure</th>
-                                <th>Amount</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                                <td>1</td>
-                                <td>Feb 14, 2024</td>
-                                <td>9:00am - 12:00pm</td>
-                                <td>February 15, 2024 9:00am - 10:00am</td>
-                                <td>500.00</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                                <td>1</td>
-                                <td>Feb 14, 2024</td>
-                                <td>9:00am - 12:00pm</td>
-                                <td>February 15, 2024 9:00am - 10:00am</td>
-                                <td>500.00</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                                <td>1</td>
-                                <td>Feb 14, 2024</td>
-                                <td>9:00am - 12:00pm</td>
-                                <td>February 15, 2024 9:00am - 10:00am</td>
-                                <td>500.00</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                                <td>1</td>
-                                <td>Feb 14, 2024</td>
-                                <td>9:00am - 12:00pm</td>
-                                <td>February 15, 2024 9:00am - 10:00am</td>
-                                <td>500.00</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                                <td>1</td>
-                                <td>Feb 14, 2024</td>
-                                <td>9:00am - 12:00pm</td>
-                                <td>February 15, 2024 9:00am - 10:00am</td>
-                                <td>500.00</td>
-                                <td>
-                                    <button class="btn btn-sm btn-primary" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="bu">
-                        <a href="Manage.php">
-                            <button style="width: 150px" type="submit" class="btn btn-success">
-                                Save Update
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="../Admin/admin-dashboard.php">
+                            <button class="btn btn-block text-left">
+                                Dashboard
                             </button>
                         </a>
-                    </div>
-                    <div>
-                        <a href="Manage.php">
-                            <button style="width: 150px; margin-left: 530px; margin-top: -67px" type="submit" class="btn btn-success">
-                                Set Default
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="user-management.php">
+                            <button class="btn btn-block text-left">
+                                User-management
                             </button>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="room-management.php">
+                            <button class="btn btn-block text-left">
+                                Room Management
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
+                <div class="row">
+                    <div class="container-fluid">
+                        <div class="dasht" style="left: 250px;">
+                            <h3>Reservation Management</h3>
+                        </div>
+                        <div class="line" style="left: 250px; width: 1000px"></div>
+
+                        <div class="container" style="margin-top: 100px">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <h5>My Recent Reservation</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th>Number</th>
+                                                    <th>Date</th>
+                                                    <th>Arrival</th>
+                                                    <th>Departure</th>
+                                                    <th>Amount</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><i class="fa-solid fa-house"></i>Two Bed</td>
+                                                    <td>1</td>
+                                                    <td>Feb 14, 2024</td>
+                                                    <td>9:00am - 12:00pm</td>
+                                                    <td>February 15, 2024 9:00am - 10:00am</td>
+                                                    <td>500.00</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-primary" title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-danger" title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="fa-solid fa-house"></i>Two Bed</td>
+                                                    <td>1</td>
+                                                    <td>Feb 14, 2024</td>
+                                                    <td>9:00am - 12:00pm</td>
+                                                    <td>February 15, 2024 9:00am - 10:00am</td>
+                                                    <td>500.00</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-primary" title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-danger" title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><i class="fa-solid fa-house"></i>Two Bed</td>
+                                                    <td>1</td>
+                                                    <td>Feb 14, 2024</td>
+                                                    <td>9:00am - 12:00pm</td>
+                                                    <td>February 15, 2024 9:00am - 10:00am</td>
+                                                    <td>500.00</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-primary" title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-danger" title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><i class="fa-solid fa-house"></i>Two Bed</td>
+                                                    <td>1</td>
+                                                    <td>Feb 14, 2024</td>
+                                                    <td>9:00am - 12:00pm</td>
+                                                    <td>February 15, 2024 9:00am - 10:00am</td>
+                                                    <td>500.00</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-primary" title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-danger" title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><i class="fa-solid fa-house"></i>Two Bed</td>
+                                                    <td>1</td>
+                                                    <td>Feb 14, 2024</td>
+                                                    <td>9:00am - 12:00pm</td>
+                                                    <td>February 15, 2024 9:00am - 10:00am</td>
+                                                    <td>500.00</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-primary" title="Edit">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-sm btn-danger" title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="bu">
+                                            <a href="Manage.php">
+                                                <button style="width: 150px" type="submit" class="btn btn-success">
+                                                    Save Update
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="Manage.php">
+                                                <button style="width: 150px; margin-left: 530px; margin-top: -67px" type="submit" class="btn btn-success">
+                                                    Set Default
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     </div>
 </body>

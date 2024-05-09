@@ -72,99 +72,133 @@
         </div>
         </div>
     </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="admin-dashboard.php">
+                            <button class="btn btn-block text-left">
+                                Dashboard
+                            </button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="user-management.php">
+                            <button class="btn btn-block text-left">
+                                User-management
+                            </button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link-active" href="room-management.php">
+                            <button class="btn btn-block text-left">
+                                Room Management
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
+                <div class="row">
+                    <div class="container-fluid">
+                        <div class="profile-card" style="left: 120px;">
+                            <div class="image">
+                                <img src="../Images/userid.webp" alt="" class="profile-img" />
+                                <a href="#" class="edit-icon"><i class="fa fa-edit"></i></a>
+                            </div>
+                            <div class="text-data">
+                                <span class="name">
+                                    <?php
+                                    // Check if the user is logged in
+                                    if (isset($_SESSION['username'])) {
+                                        // Fetch the username from the session or database
+                                        $username = $_SESSION['username']; // Assuming the username is stored in a session variable
+                                        echo "$username";
+                                    } else {
+                                        echo "Welcome";
+                                    }
+                                    ?>
+                                </span>
+                                <span class="job">
+                                    <?php
 
-    <div class="profile-card">
-        <div class="image">
-            <img src="../Images/userid.webp" alt="" class="profile-img" />
-            <a href="#" class="edit-icon"><i class="fa fa-edit"></i></a>
-        </div>
-        <div class="text-data">
-            <span class="name">
-                <?php
-                // Check if the user is logged in
-                if (isset($_SESSION['username'])) {
-                    // Fetch the username from the session or database
-                    $username = $_SESSION['username']; // Assuming the username is stored in a session variable
-                    echo "$username";
-                } else {
-                    echo "Welcome";
-                }
-                ?>
-            </span>
-            <span class="job">
-                <?php
+                                    // Check if the user is logged in
+                                    if (isset($_SESSION['username'])) {
+                                        // Fetch the username from the session or database
+                                        $username = $_SESSION['username']; // Assuming the username is stored in a session variable
+                                        echo "$username";
+                                    } else {
+                                        echo "Log in First";
+                                    }
+                                    ?>
+                                </span>
+                                <span class="job">
+                                    <?php
 
-                // Check if the user is logged in
-                if (isset($_SESSION['username'])) {
-                    // Fetch the username from the session or database
-                    $username = $_SESSION['username']; // Assuming the username is stored in a session variable
-                    echo "$username";
-                } else {
-                    echo "Log in First";
-                }
-                ?>
-            </span>
-            <span class="job">
-                <?php
+                                    // Check if the user is logged in
+                                    if (isset($_SESSION['user_id']) && isset($_SESSION['age']) && isset($_SESSION['gender'])) {
+                                        // Fetch the id, age, and gender from the session or database
+                                        $id = $_SESSION['user_id'];
+                                        $age = $_SESSION['age'];
+                                        $gender = $_SESSION['gender'];
 
-                // Check if the user is logged in
-                if (isset($_SESSION['user_id']) && isset($_SESSION['age']) && isset($_SESSION['gender'])) {
-                    // Fetch the id, age, and gender from the session or database
-                    $id = $_SESSION['user_id'];
-                    $age = $_SESSION['age'];
-                    $gender = $_SESSION['gender'];
+                                        echo "User ID: $id, Age: $age, Gender: $gender";
+                                    } else {
+                                        echo "Welcome";
+                                    }
+                                    ?>
+                                </span>
+                                <span class="job">09631308925</span>
+                                <span class="job">
+                                    <?php
 
-                    echo "User ID: $id, Age: $age, Gender: $gender";
-                } else {
-                    echo "Welcome";
-                }
-                ?>
-            </span>
-            <span class="job">09631308925</span>
-            <span class="job">
-                <?php
+                                    // Check if the user is logged in
+                                    if (isset($_SESSION['email'])) {
+                                        // Fetch the username from the session or database
+                                        $email = $_SESSION['email']; // Assuming the username is stored in a session variable
+                                        echo "$email";
+                                    } else {
+                                        echo "Log in First";
+                                    }
+                                    ?>
+                                </span>
+                                <span class="job">
+                                    <?php
 
-                // Check if the user is logged in
-                if (isset($_SESSION['email'])) {
-                    // Fetch the username from the session or database
-                    $email = $_SESSION['email']; // Assuming the username is stored in a session variable
-                    echo "$email";
-                } else {
-                    echo "Log in First";
-                }
-                ?>
-            </span>
-            <span class="job">
-                <?php
+                                    // Check if the user is logged in
+                                    if (isset($_SESSION['address'])) {
+                                        // Fetch the username from the session or database
+                                        $address = $_SESSION['address']; // Assuming the username is stored in a session variable
+                                        echo "$address";
+                                    } else {
+                                        echo "Log in First";
+                                    }
+                                    ?>
+                                </span>
 
-                // Check if the user is logged in
-                if (isset($_SESSION['address'])) {
-                    // Fetch the username from the session or database
-                    $address = $_SESSION['address']; // Assuming the username is stored in a session variable
-                    echo "$address";
-                } else {
-                    echo "Log in First";
-                }
-                ?>
-            </span>
-
-        </div>
-        <div class="media-buttons">
-            <a href="#" style="background: #4267b2" class="link">
-                <i class="bx bxl-facebook"></i>
-            </a>
-            <a href="#" style="background: #1da1f2" class="link">
-                <i class="bx bxl-twitter"></i>
-            </a>
-            <a href="#" style="background: #e1306c" class="link">
-                <i class="bx bxl-instagram"></i>
-            </a>
-            <a href="#" style="background: #ff0000" class="link">
-                <i class="bx bxl-youtube"></i>
-            </a>
-        </div>
-        <div class="buttons">
-            <button class="button">Update Profile</button>
+                            </div>
+                            <div class="media-buttons">
+                                <a href="#" style="background: #4267b2" class="link">
+                                    <i class="bx bxl-facebook"></i>
+                                </a>
+                                <a href="#" style="background: #1da1f2" class="link">
+                                    <i class="bx bxl-twitter"></i>
+                                </a>
+                                <a href="#" style="background: #e1306c" class="link">
+                                    <i class="bx bxl-instagram"></i>
+                                </a>
+                                <a href="#" style="background: #ff0000" class="link">
+                                    <i class="bx bxl-youtube"></i>
+                                </a>
+                            </div>
+                            <div class="buttons">
+                                <button class="button">Update Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 </body>

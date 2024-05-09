@@ -1,3 +1,25 @@
+<?php
+
+session_start();
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "malaybalay_hotel_reservation";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM reservation";
+$result = $conn->query($sql);
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -17,8 +39,6 @@
 			<a class="navbar-brand d-flex align-items-center" href="dashboard.php">
 				<img class="logo" src="../Images/logo.png" alt="logo" /><span class="sdash">
 					<?php
-					// Assuming you have started the session
-					session_start();
 
 					// Check if the user is logged in
 					if (isset($_SESSION['username'])) {
@@ -175,7 +195,58 @@
 
 						<div style="margin-top: 30px"></div>
 
-						<div class="container">
+						<?php
+						// Assuming you have already connected to your database
+
+						// Check if there are any reservations
+						if ($result->num_rows > 0) {
+						?>
+							<div class="container" style="margin-top: 20px">
+								<div class="col-md-w-100">
+									<div class="card">
+										<div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>User ID</th>
+													<th>Name</th>
+													<th>Type</th>
+													<th>Number</th>
+													<th>Arrival</th>
+													<th>Departure</th>
+													<th>Payment</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
+												// Fetch and display each reservation
+												while ($row = $result->fetch_assoc()) {
+												?>
+													<tr>
+														<td><?php echo $row['user_id']; ?></td>
+														<td><?php echo $row['username']; ?></td>
+														<td><?php echo $row['room_type']; ?></td>
+														<td><?php echo $row['room_num']; ?></td>
+														<td><?php echo $row['checkin']; ?></td>
+														<td><?php echo $row['checkout']; ?></td>
+														<td><?php echo $row['price']; ?></td>
+													</tr>
+												<?php
+												}
+												?>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						<?php
+						} else {
+							// If no reservations found
+							echo "No reservations found.";
+						}
+						?>
+
+						<!-- <div class="container">
 							<div class="row justify-content-center">
 								<div class="col-md-w-100">
 									<div class="card">
@@ -239,7 +310,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
+
 					</div>
 				</div>
 			</main>
