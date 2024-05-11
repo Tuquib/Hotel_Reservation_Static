@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Room Availability Checker</title>
 	<link rel="stylesheet" href="../style.css" />
+	<link rel="stylesheet" href="homepage.css" />
 	<link rel="stylesheet" href="../bootstrap-5.3.2/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -91,23 +92,23 @@
 			<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
 				<ul class="nav flex-column">
 					<li class="nav-item">
-						<a class="nav-link-active" href="admin-dashboard.php">
-							<button class="btn btn-block text-left">
+						<a class="nav-link-active" href="dashboard.php">
+							<button class="btn btn-block text-center"><i class="fas fa-tachometer-alt"></i>
 								Dashboard
 							</button>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link-active" href="user-management.php">
-							<button class="btn btn-block text-left">
-								User-management
+						<a class="nav-link-active" href="Manage.php">
+							<button class="btn btn-block text-center"><i class="fa-solid fa-list-check"></i>
+								Manage
 							</button>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link-active" href="room-management.php">
-							<button class="btn btn-block text-left">
-								Room Management
+						<a class="nav-link-active" href="room-availability.php">
+							<button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-bed"></i>
+								Room Availability
 							</button>
 						</a>
 					</li>
@@ -117,11 +118,11 @@
 				<div class="row">
 					<div class="container-fluid">
 						<div class="dasht" style="left: 250px;">
-							<h3>Dashboard</h3>
+							<h3>Room Availability</h3>
 						</div>
 						<div class="line" style="left: 250px; width: 1000px">
 							<div class="text-center" style="right: 50px;">
-								<p style="margin-top: 10px;">Best Rooms</p>
+								<p style="margin-top: 10px;">Available Room</p>
 							</div>
 						</div>
 
@@ -131,10 +132,10 @@
 									<img src="../Images/Bed1.jpg" alt="popular hotel" />
 									<div class="popular__content">
 										<div class="popular__card__header">
-											<h4>Two Beds with Cr</h4>
-											<h4>P499</h4>
+											<h4>Classic</h4>
+											<h4>P1500</h4>
 										</div>
-										<p>Room 1</p>
+										<p>Room 2</p>
 										<a href="booking.php">
 											<button style="width: 150px" type="submit" class="btn btn-success">
 												Book Now
@@ -146,8 +147,8 @@
 									<img src="../Images/Back2.jpg" alt="popular hotel" />
 									<div class="popular__content">
 										<div class="popular__card__header">
-											<h4>Two Beds with Cr</h4>
-											<h4>P499</h4>
+											<h4>Standard</h4>
+											<h4>P2000</h4>
 										</div>
 										<p>Room 1</p>
 										<a href="booking.php">
@@ -161,10 +162,55 @@
 									<img src="../Images/Bed3.jpg" alt="popular hotel" />
 									<div class="popular__content">
 										<div class="popular__card__header">
-											<h4>Two Beds with Cr</h4>
-											<h4>P499</h4>
+											<h4>Supreme</h4>
+											<h4>P2500</h4>
 										</div>
-										<p>Room 1</p>
+										<p>Room 3</p>
+										<a href="booking.php">
+											<button style="width: 150px" type="submit" class="btn btn-success">
+												Book Now
+											</button>
+										</a>
+									</div>
+								</div>
+								<div class="popular__card">
+									<img src="../Images/Bed3.jpg" alt="popular hotel" />
+									<div class="popular__content">
+										<div class="popular__card__header">
+											<h4>Deluxe</h4>
+											<h4>P2500</h4>
+										</div>
+										<p>Room 4</p>
+										<a href="booking.php">
+											<button style="width: 150px" type="submit" class="btn btn-success">
+												Book Now
+											</button>
+										</a>
+									</div>
+								</div>
+								<div class="popular__card">
+									<img src="../Images/Bed3.jpg" alt="popular hotel" />
+									<div class="popular__content">
+										<div class="popular__card__header">
+											<h4>Superior</h4>
+											<h4>P2500</h4>
+										</div>
+										<p>Room 5</p>
+										<a href="booking.php">
+											<button style="width: 150px" type="submit" class="btn btn-success">
+												Book Now
+											</button>
+										</a>
+									</div>
+								</div>
+								<div class="popular__card">
+									<img src="../Images/Bed3.jpg" alt="popular hotel" />
+									<div class="popular__content">
+										<div class="popular__card__header">
+											<h4>Suite</h4>
+											<h4>P2000</h4>
+										</div>
+										<p>Room 6</p>
 										<a href="booking.php">
 											<button style="width: 150px" type="submit" class="btn btn-success">
 												Book Now
@@ -174,19 +220,48 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="reserve">
-							<a href="booking.php">
-								<button style="width: 150px" type="submit" class="btn btn-success">
-									Reserve Now
-								</button>
-							</a>
-						</div>
 					</div>
 				</div>
 			</main>
 		</div>
 	</div>
+
+	<footer class="footer" id="contact">
+		<div class="section__container footer__container">
+			<div class="footer__col">
+				<h3>Malaybalay Air BnB Travellers Inn</h3>
+				<p>
+					With a user-friendly interface and a vast selection of hotels,
+					Malaybalay Air BnB Travellers Inn aims to provide a stress-free
+					experience for travelers seeking the perfect stay.
+				</p>
+				<p>
+					You can contact us in our Social Media , Phone Number +639631308925
+				</p>
+			</div>
+			<div class="footer__col">
+				<h4>Hotel</h4>
+				<p>About Us</p>
+				<p>Contact Us</p>
+			</div>
+			<div class="footer__col">
+				<h4>Legal</h4>
+				<p>FAQs</p>
+				<p>Terms & Conditions</p>
+				<p>Privacy Policy</p>
+			</div>
+			<div class="footer__col">
+				<h4>Resources</h4>
+				<p>Social Media</p>
+				<p>Help Center</p>
+				<p>Partnerships</p>
+			</div>
+		</div>
+		<div class="footer__bar">
+			Copyright © 2024 Ubald Jones L. Tuquib. All rights reserved.
+		</div>
+	</footer>
+
 </body>
 
 </html>

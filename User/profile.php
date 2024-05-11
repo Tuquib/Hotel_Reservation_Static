@@ -77,23 +77,23 @@
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link-active" href="admin-dashboard.php">
-                            <button class="btn btn-block text-left">
+                        <a class="nav-link-active" href="dashboard.php">
+                            <button class="btn btn-block text-center"><i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-active" href="user-management.php">
-                            <button class="btn btn-block text-left">
-                                User-management
+                        <a class="nav-link-active" href="Manage.php">
+                            <button class="btn btn-block text-center"><i class="fa-solid fa-list-check"></i>
+                                Manage
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-active" href="room-management.php">
-                            <button class="btn btn-block text-left">
-                                Room Management
+                        <a class="nav-link-active" href="room-availability.php">
+                            <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-bed"></i>
+                                Room Availability
                             </button>
                         </a>
                     </li>

@@ -19,6 +19,7 @@ $sql = "SELECT * FROM reservation";
 $result = $conn->query($sql);
 
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -34,6 +35,10 @@ $result = $conn->query($sql);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="../Images/Favicon2.png" />
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -66,8 +71,8 @@ $result = $conn->query($sql);
                 <button class="btn rounded-circle btn-secondary">
                     <i class="fa-solid fa-comment-dots"></i>
                 </button>
-                <div class="content">
-                    <a href="#">Inbox</a>
+                <div class="content" id="inboxLink">
+                    <a href="#">Message</a>
                 </div>
             </div>
 
@@ -77,7 +82,6 @@ $result = $conn->query($sql);
                 </button>
                 <div class="content">
                     <a href="#">Notification</a>
-                    <a href="#">Announcement</a>
                 </div>
             </div>
 
@@ -98,23 +102,23 @@ $result = $conn->query($sql);
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link-active" href="admin-dashboard.php">
-                            <button class="btn btn-block text-left">
+                        <a class="nav-link-active" href="dashboard.php">
+                            <button class="btn btn-block text-center"><i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-active" href="user-management.php">
-                            <button class="btn btn-block text-left">
-                                User-management
+                        <a class="nav-link-active" href="Manage.php">
+                            <button class="btn btn-block text-center"><i class="fa-solid fa-list-check"></i>
+                                Manage
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-active" href="room-management.php">
-                            <button class="btn btn-block text-left">
-                                Room Management
+                        <a class="nav-link-active" href="room-availability.php">
+                            <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-bed"></i>
+                                Room Availability
                             </button>
                         </a>
                     </li>
@@ -182,8 +186,7 @@ $result = $conn->query($sql);
                             </div>
                         </div>
 
-
-                        <div class="container" style="margin-top: 80px;">
+                        <div class="container" style="margin-top: 40px;">
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-header">Reservation History</div>
@@ -192,24 +195,38 @@ $result = $conn->query($sql);
                                             <tr>
                                                 <th>Type</th>
                                                 <th>Number</th>
-                                                <th>Date</th>
-                                                <th>Amount</th>
+                                                <th>Check In</th>
+                                                <th>Check Out</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Two Bed</td>
-                                                <td>1</td>
-                                                <td>Feb 14, 2024</td>
-                                                <td>500.00</td>
-                                            </tr>
+                                            <?php
+                                            // Check if there are any rows returned from the query
+                                            if ($result->num_rows > 0) {
+                                                // Output data of each row
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $row["room_type"] .  "</td>";
+                                                    echo "<td>" . $row["room_num"] . "</td>";
+                                                    echo "<td>" . $row["checkin"] . "</td>";
+                                                    echo "<td>" . $row["checkout"] . "</td>";
+                                                    echo "</tr>";
+                                                }
+                                                echo "</tbody></table>";
 
-                                            <tr>
-                                                <td>Two Bed</td>
-                                                <td>2</td>
-                                                <td>Feb 14, 2024</td>
-                                                <td>500.00</td>
-                                            </tr>
+                                                // Echo out the DataTables initialization code here
+                                                echo "<script>
+                                                 $(document).ready(function() {
+                                                     $('#reservationTable').DataTable(); // Initialize DataTables for your table
+                                                 });
+                                                 </script>";
+                                            }
+                                            // Check for errors in the SQL query execution
+                                            if (!$result) {
+                                                echo "Error: " . $sql . "<br>" . $conn->error;
+                                            }
+
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -221,67 +238,64 @@ $result = $conn->query($sql);
                         $sql = "SELECT * FROM reservation WHERE username = '$username'";
                         $result = $conn->query($sql);
 
-                        if ($result) {
-                            if ($result->num_rows > 0) {
-                                // Display reservations
+                        // Display reservations
                         ?>
-                                <div class="container" style="margin-top: 20px">
-                                    <div class="col-md-8">
-                                        <div class="card" style="left: 340px; top: -248px;">
-                                            <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Type</th>
-                                                        <th>Number</th>
-                                                        <th>Arrival</th>
-                                                        <th>Departure</th>
-                                                        <th>Amount</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    // Fetch and display each reservation
-                                                    while ($row = $result->fetch_assoc()) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $row['room_type']; ?></td>
-                                                            <td><?php echo $row['room_num']; ?></td>
-                                                            <td><?php echo $row['checkin']; ?></td>
-                                                            <td><?php echo $row['checkout']; ?></td>
-                                                            <td><?php echo $row['price']; ?></td>
-                                                        </tr>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                        <?php
-                            } else {
-                                // If no reservations found for the logged-in user
-                                echo "No reservations found for this user.";
-                            }
-                        } else {
-                            // Error handling
-                            echo "Error: " . $conn->error;
-                        }
-                        ?>
+                        <div class="container" style="margin-top: 20px">
+                            <div class="col-md-8">
+                                <div class="card" style="left: 340px; top: -120px;">
+                                    <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Number</th>
+                                                <th>Arrival</th>
+                                                <th>Departure</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            // Check if there are any rows returned from the query
+                                            if ($result->num_rows > 0) {
+                                                // Output data of each row
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $row["room_type"] .  "</td>";
+                                                    echo "<td>" . $row["room_num"] . "</td>";
+                                                    echo "<td>" . $row["checkin"] . "</td>";
+                                                    echo "<td>" . $row["checkout"] . "</td>";
+                                                    echo "<td>" . $row["price"] . "</td>";
+                                                    echo "</tr>";
+                                                }
+                                                echo "</tbody></table>";
 
-                        <div class="book">
-                            <a href="booking.php">
-                                <button style="width: 100px" type="submit" class="btn btn-success">
-                                    Book Now
-                                </button>
-                            </a>
+                                                // Echo out the DataTables initialization code here
+                                                echo "<script>
+                                                 $(document).ready(function() {
+                                                     $('#reservationTable').DataTable(); // Initialize DataTables for your table
+                                                 });
+                                                 </script>";
+                                            }
+                                            // Check for errors in the SQL query execution
+                                            if (!$result) {
+                                                echo "Error: " . $sql . "<br>" . $conn->error;
+                                            }
+
+                                            // Close the database connection
+                                            $conn->close();
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </main>
         </div>
     </div>
+
     <footer class="footer" id="contact">
         <div class="section__container footer__container">
             <div class="footer__col">
@@ -317,6 +331,13 @@ $result = $conn->query($sql);
             Copyright © 2024 Ubald Jones L. Tuquib. All rights reserved.
         </div>
     </footer>
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
+
 
 </html>

@@ -94,23 +94,23 @@ session_start();
             <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link-active" href="../Admin/admin-dashboard.php">
-                            <button class="btn btn-block text-left">
+                        <a class="nav-link-active" href="dashboard.php">
+                            <button class="btn btn-block text-center"><i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-active" href="user-management.php">
-                            <button class="btn btn-block text-left">
-                                User-management
+                        <a class="nav-link-active" href="Manage.php">
+                            <button class="btn btn-block text-center"><i class="fa-solid fa-list-check"></i>
+                                Manage
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link-active" href="room-management.php">
-                            <button class="btn btn-block text-left">
-                                Room Management
+                        <a class="nav-link-active" href="room-availability.php">
+                            <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-bed"></i>
+                                Room Availability
                             </button>
                         </a>
                     </li>
@@ -142,7 +142,7 @@ session_start();
                                     // Output the fetched data
                                 ?>
                                     <div class="popular__card" style="width: 305px; height: 305px;">
-                                        <img src="../Images/Bed1.jpg" alt="popular hotel" />
+                                        <img src="../Images/<?php echo $fetch['photo'] ?>" alt="popular hotel" />
                                         <div class="popular__content">
                                             <div class="popular__card__header">
                                                 <h4 id="room_type"><?php echo $fetch['room_type'] ?></h4>
@@ -234,6 +234,42 @@ session_start();
             </main>
         </div>
     </div>
+
+    <footer class="footer" id="contact">
+        <div class="section__container footer__container">
+            <div class="footer__col">
+                <h3>Malaybalay Air BnB Travellers Inn</h3>
+                <p>
+                    With a user-friendly interface and a vast selection of hotels,
+                    Malaybalay Air BnB Travellers Inn aims to provide a stress-free
+                    experience for travelers seeking the perfect stay.
+                </p>
+                <p>
+                    You can contact us in our Social Media , Phone Number +639631308925
+                </p>
+            </div>
+            <div class="footer__col">
+                <h4>Hotel</h4>
+                <p>About Us</p>
+                <p>Contact Us</p>
+            </div>
+            <div class="footer__col">
+                <h4>Legal</h4>
+                <p>FAQs</p>
+                <p>Terms & Conditions</p>
+                <p>Privacy Policy</p>
+            </div>
+            <div class="footer__col">
+                <h4>Resources</h4>
+                <p>Social Media</p>
+                <p>Help Center</p>
+                <p>Partnerships</p>
+            </div>
+        </div>
+        <div class="footer__bar">
+            Copyright © 2024 Ubald Jones L. Tuquib. All rights reserved.
+        </div>
+    </footer>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
