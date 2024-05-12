@@ -1,10 +1,16 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Room Availability Checker</title>
+	<title>Online Booking</title>
 	<link rel="stylesheet" href="../style.css" />
 	<link rel="stylesheet" href="homepage.css" />
 	<link rel="stylesheet" href="../bootstrap-5.3.2/dist/css/bootstrap.min.css" />
@@ -27,15 +33,11 @@
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		}
 	</style>
-
 	<nav class="navbar">
 		<div class="container-fluid">
 			<a class="navbar-brand d-flex align-items-center" href="dashboard.php">
 				<img class="logo" src="../Images/logo.png" alt="logo" /><span class="sdash">
 					<?php
-					// Assuming you have started the session
-					session_start();
-
 					// Check if the user is logged in
 					if (isset($_SESSION['username'])) {
 						// Fetch the username from the session or database
@@ -99,6 +101,13 @@
 						</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link-active" href="booking.php">
+							<button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-calendar-days"></i>
+								Booking
+							</button>
+						</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link-active" href="Manage.php">
 							<button class="btn btn-block text-center"><i class="fa-solid fa-list-check"></i>
 								Manage
@@ -114,154 +123,103 @@
 					</li>
 				</ul>
 			</nav>
+
 			<main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
 				<div class="row">
 					<div class="container-fluid">
 						<div class="dasht" style="left: 250px;">
 							<h3>Room Availability</h3>
 						</div>
-						<div class="line" style="left: 250px; width: 1000px">
+						<div class="line" style="left: 250px; width: 1100px">
 							<div class="text-center" style="right: 50px;">
-								<p style="margin-top: 10px;">Available Room</p>
+								<p style="margin-top: 10px;">Available Rooms</p>
 							</div>
 						</div>
 
 						<div class="container" style="margin-top: 80px;">
 							<div class="popular__grid">
-								<div class="popular__card">
-									<img src="../Images/Bed1.jpg" alt="popular hotel" />
-									<div class="popular__content">
-										<div class="popular__card__header">
-											<h4>Classic</h4>
-											<h4>P1500</h4>
+								<?php
+								require_once '../config.php';
+
+								// Fetch data from the rooms table
+								$query = $conn->query("SELECT * FROM `rooms` ORDER BY `price` ASC") or die(mysqli_error($conn));
+
+								// Loop through each fetched row
+								while ($fetch = $query->fetch_assoc()) {
+									// Output the fetched data
+								?>
+									<div class="popular__card">
+										<img src=" ../Images/<?php echo $fetch['photo'] ?>" alt="popular hotel" />
+										<div class="popular__content">
+											<div class="popular__card__header">
+												<h4 id="room_type"><?php echo $fetch['room_type'] ?></h4>
+												<h4 id="price"> P<?php echo $fetch['price'] ?></h4>
+											</div>
+											<p id="room_num"><?php echo $fetch['room_num'] ?></p>
+											<a href="booking.php">
+												<button style="width: 150px;" type="button" class="btn btn-success">
+													Check Now
+												</button>
+											</a>
 										</div>
-										<p>Room 2</p>
-										<a href="booking.php">
-											<button style="width: 150px" type="submit" class="btn btn-success">
-												Book Now
-											</button>
-										</a>
 									</div>
-								</div>
-								<div class="popular__card">
-									<img src="../Images/Back2.jpg" alt="popular hotel" />
-									<div class="popular__content">
-										<div class="popular__card__header">
-											<h4>Standard</h4>
-											<h4>P2000</h4>
-										</div>
-										<p>Room 1</p>
-										<a href="booking.php">
-											<button style="width: 150px" type="submit" class="btn btn-success">
-												Book Now
-											</button>
-										</a>
-									</div>
-								</div>
-								<div class="popular__card">
-									<img src="../Images/Bed3.jpg" alt="popular hotel" />
-									<div class="popular__content">
-										<div class="popular__card__header">
-											<h4>Supreme</h4>
-											<h4>P2500</h4>
-										</div>
-										<p>Room 3</p>
-										<a href="booking.php">
-											<button style="width: 150px" type="submit" class="btn btn-success">
-												Book Now
-											</button>
-										</a>
-									</div>
-								</div>
-								<div class="popular__card">
-									<img src="../Images/Bed3.jpg" alt="popular hotel" />
-									<div class="popular__content">
-										<div class="popular__card__header">
-											<h4>Deluxe</h4>
-											<h4>P2500</h4>
-										</div>
-										<p>Room 4</p>
-										<a href="booking.php">
-											<button style="width: 150px" type="submit" class="btn btn-success">
-												Book Now
-											</button>
-										</a>
-									</div>
-								</div>
-								<div class="popular__card">
-									<img src="../Images/Bed3.jpg" alt="popular hotel" />
-									<div class="popular__content">
-										<div class="popular__card__header">
-											<h4>Superior</h4>
-											<h4>P2500</h4>
-										</div>
-										<p>Room 5</p>
-										<a href="booking.php">
-											<button style="width: 150px" type="submit" class="btn btn-success">
-												Book Now
-											</button>
-										</a>
-									</div>
-								</div>
-								<div class="popular__card">
-									<img src="../Images/Bed3.jpg" alt="popular hotel" />
-									<div class="popular__content">
-										<div class="popular__card__header">
-											<h4>Suite</h4>
-											<h4>P2000</h4>
-										</div>
-										<p>Room 6</p>
-										<a href="booking.php">
-											<button style="width: 150px" type="submit" class="btn btn-success">
-												Book Now
-											</button>
-										</a>
-									</div>
-								</div>
+								<?php
+								}
+								?>
 							</div>
 						</div>
+						<div style="margin-bottom: 20px;"></div>
+
 					</div>
 				</div>
 			</main>
 		</div>
 	</div>
 
+
+
 	<footer class="footer" id="contact">
 		<div class="section__container footer__container">
 			<div class="footer__col">
-				<h3>Malaybalay Air BnB Travellers Inn</h3>
-				<p>
+				<h3 style="color: black">Malaybalay Air BnB Travellers Inn</h3>
+				<p style="color: black">
 					With a user-friendly interface and a vast selection of hotels,
 					Malaybalay Air BnB Travellers Inn aims to provide a stress-free
 					experience for travelers seeking the perfect stay.
 				</p>
-				<p>
+				<p style="color: black">
 					You can contact us in our Social Media , Phone Number +639631308925
 				</p>
 			</div>
 			<div class="footer__col">
-				<h4>Hotel</h4>
-				<p>About Us</p>
-				<p>Contact Us</p>
+				<h4 style="color: black">Hotel</h4>
+				<p style="color: black">About Us</p>
+				<p style="color: black">Contact Us</p>
 			</div>
 			<div class="footer__col">
-				<h4>Legal</h4>
-				<p>FAQs</p>
-				<p>Terms & Conditions</p>
-				<p>Privacy Policy</p>
+				<h4 style="color: black">Legal</h4>
+				<p style="color: black">FAQs</p>
+				<p style="color: black">Terms & Conditions</p>
+				<p style="color: black">Privacy Policy</p>
 			</div>
 			<div class="footer__col">
-				<h4>Resources</h4>
-				<p>Social Media</p>
-				<p>Help Center</p>
-				<p>Partnerships</p>
+				<h4 style="color: black">Resources</h4>
+				<p style="color: black">Social Media</p>
+				<p style="color: black">Help Center</p>
+				<p style="color: black">Partnerships</p>
 			</div>
 		</div>
-		<div class="footer__bar">
+		<div class="footer__bar" style="color: black">
 			Copyright © 2024 Ubald Jones L. Tuquib. All rights reserved.
 		</div>
 	</footer>
 
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
 
 </html>

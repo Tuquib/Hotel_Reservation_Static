@@ -84,6 +84,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link-active" href="booking.php">
+                            <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                Booking
+                            </button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link-active" href="Manage.php">
                             <button class="btn btn-block text-center"><i class="fa-solid fa-list-check"></i>
                                 Manage
@@ -102,7 +109,7 @@
             <main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
                 <div class="row">
                     <div class="container-fluid">
-                        <div class="profile-card" style="left: 120px;">
+                        <div class="profile-card" style="left: 170px;">
                             <div class="image">
                                 <img src="../Images/userid.webp" alt="" class="profile-img" />
                                 <a href="#" class="edit-icon"><i class="fa fa-edit"></i></a>
@@ -201,6 +208,8 @@
             </main>
         </div>
     </div>
+
+
 </body>
 
 </html>

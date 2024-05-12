@@ -107,6 +107,13 @@ $result = $conn->query($sql);
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link-active" href="booking.php">
+                            <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                Booking
+                            </button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link-active" href="Manage.php">
                             <button class="btn btn-block text-center"><i class="fa-solid fa-list-check"></i>
                                 Manage
@@ -128,7 +135,7 @@ $result = $conn->query($sql);
                         <div class="dasht" style="left: 250px;">
                             <h3>Reservation Management</h3>
                         </div>
-                        <div class="line" style="left: 250px; width: 1000px"></div>
+                        <div class="line" style="left: 250px; width: 1100px"></div>
 
                         <?php
                         // Check if there are any reservations for the logged-in user
@@ -144,7 +151,6 @@ $result = $conn->query($sql);
                                     <table id="reservationTable" class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Reservation ID</th>
                                                 <th>Type</th>
                                                 <th>Number</th>
                                                 <th>Arrival</th>
@@ -152,6 +158,7 @@ $result = $conn->query($sql);
                                                 <th>Departure</th>
                                                 <th>Check out Time</th>
                                                 <th>Amount</th>
+                                                <th>Payment Method</th>
                                                 <th>Action</th>
 
                                             </tr>
@@ -163,7 +170,6 @@ $result = $conn->query($sql);
                                                 // Output data of each row
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
-                                                    echo "<td>" . $row["rev_id"] . "</td>";
                                                     echo "<td>" . $row["room_type"] .  "</td>";
                                                     echo "<td>" . $row["room_num"] . "</td>";
                                                     echo "<td>" . $row["checkin"] . "</td>";
@@ -171,8 +177,9 @@ $result = $conn->query($sql);
                                                     echo "<td>" . $row["checkout"] . "</td>";
                                                     echo "<td>" . $row["checkout_time"] . "</td>";
                                                     echo "<td>" . $row["price"] . "</td>";
+                                                    echo "<td>" . $row["payment_method"] . "</td>";
                                                     echo "<td>";
-                                                    echo "<button class='btn btn-info edit-btn' type='button' value='Edit' style='margin-right: 4px;' onclick='openUpdateModal(" . $row["rev_id"] . ")'><i class='fa fa-pencil' ></i></button>";
+                                                    echo "<button class='btn btn-info edit-btn' type='button' value='Edit' style='margin-right: 4px;' onclick='openUpdateModal(" . $row["room_id"] . ")'><i class='fa fa-pencil' ></i></button>";
                                                     echo "<button class='btn btn-danger delete-btn' type='button' value='Delete' onclick='deleteUser(" . $row["rev_id"] . ")'><i class='fa fa-trash'></i></button>";
                                                     echo "</td>";
                                                     // Add actions here if needed
@@ -191,16 +198,18 @@ $result = $conn->query($sql);
                                             if (!$result) {
                                                 echo "Error: " . $sql . "<br>" . $conn->error;
                                             }
-
+                                            //Close database connection
+                                            $conn->close();
                                             ?>
+
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Secondary Modal for Reservation -->
-                        <div class="modal fade" id="updateModal" tabindex="-1">
+                        <!-- Update Modal for Reservation -->
+                        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -210,14 +219,14 @@ $result = $conn->query($sql);
                                     <div class="modal-body">
                                         <!-- Reservation form will be loaded dynamically here -->
                                         <form action="formUpdate">
-                                            <input type="hidden" name="room_id" value="<?php echo $fetch['room_id']; ?>">
+                                            <input type="hidden" name="room_id" id="update_room_id" value="<?php echo $fetch['room_id']; ?>">
                                             <input type="hidden" name="room_type" value="<?php echo $fetch['room_type']; ?>">
                                             <input type="hidden" name="price" value="<?php echo $fetch['price']; ?>">
                                             <input type="hidden" name="room_num" value="<?php echo $fetch['room_num']; ?>">
                                             <!-- Additional input fields for reservation -->
                                             <div class="mb-3">
                                                 <label for="contact" class="col-form-label">Contact Information:</label>
-                                                <input type="number" name="contact_num" id="update_contact_num" class="form-control">
+                                                <input type="number" name="contact_num" id="update_contact_num" class="form-control" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="contact" class="col-form-label">Payment Method:</label>
@@ -231,42 +240,81 @@ $result = $conn->query($sql);
                                             </div>
                                             <div class="mb-3">
                                                 <label for="date" class="col-form-label">Check In:</label>
-                                                <input type="date" name="checkin" id="update_checkin" class="form-control">
+                                                <input type="date" name="checkin" id="update_checkin" class="form-control" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="col-form-label">Time</label>
-                                                <input type="time" name="checkin_time" id="update_checkin_time" class="form-control"></input>
+                                                <input type="time" name="checkin_time" id="update_checkin_time" class="form-control" required></input>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="date" class="col-form-label">Check out</label>
-                                                <input type="date" name="checkout" id="update_checkout" class="form-control">
+                                                <input type="date" name="checkout" id="update_checkout" class="form-control" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="col-form-label">Time</label>
-                                                <input type="time" name="checkout_time" id="update_checkout_time" class="form-control"></input>
+                                                <input type="time" name="checkout_time" id="update_checkout_time" class="form-control" required></input>
                                             </div>
-                                        </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="updateUser()">Save changes</button>
+                                        <button type="button" class="btn btn-primary" id="updateButton" onclick="updateReservation()">Save changes</button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <?php
-                        //Close database connection
-                        $conn->close();
-                        ?>
+                        <div style="margin-bottom: 40px;"></div>
+
                     </div>
                 </div>
             </main>
         </div>
     </div>
 
+    <footer class="footer" id="contact">
+        <div class="section__container footer__container">
+            <div class="footer__col">
+                <h3 style="color: black">Malaybalay Air BnB Travellers Inn</h3>
+                <p style="color: black">
+                    With a user-friendly interface and a vast selection of hotels,
+                    Malaybalay Air BnB Travellers Inn aims to provide a stress-free
+                    experience for travelers seeking the perfect stay.
+                </p>
+                <p style="color: black">
+                    You can contact us in our Social Media , Phone Number +639631308925
+                </p>
+            </div>
+            <div class="footer__col">
+                <h4 style="color: black">Hotel</h4>
+                <p style="color: black">About Us</p>
+                <p style="color: black">Contact Us</p>
+            </div>
+            <div class="footer__col">
+                <h4 style="color: black">Legal</h4>
+                <p style="color: black">FAQs</p>
+                <p style="color: black">Terms & Conditions</p>
+                <p style="color: black">Privacy Policy</p>
+            </div>
+            <div class="footer__col">
+                <h4 style="color: black">Resources</h4>
+                <p style="color: black">Social Media</p>
+                <p style="color: black">Help Center</p>
+                <p style="color: black">Partnerships</p>
+            </div>
+        </div>
+        <div class="footer__bar" style="color: black">
+            Copyright © 2024 Ubald Jones L. Tuquib. All rights reserved.
+        </div>
+    </footer>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
 
     <script>
         function deleteUser(rev_id) {
@@ -296,15 +344,16 @@ $result = $conn->query($sql);
             }
         }
 
-        function openUpdateModal(rev_id) {
+        function openUpdateModal(room_id) {
             $.ajax({
                 url: 'get_reservation.php', // Assuming this PHP file retrieves reservation data
                 method: 'POST',
                 data: {
-                    rev_id: rev_id
+                    room_id: room_id
                 },
                 success: function(response) {
                     let reservation = JSON.parse(response);
+                    $("#update_room_id").val(reservation.room_id);
                     $("#update_contact_num").val(reservation.contact_num);
                     $("#update_payment_method").val(reservation.payment_method);
                     $("#update_checkin").val(reservation.checkin);
@@ -321,33 +370,42 @@ $result = $conn->query($sql);
             });
         }
 
-        function updateUser() {
-            // Get updated reservation from the form
-            let contact_num = $("#update_contact_num").val();
-            let payment_method = $("#update_payment_method").val();
+        function updateReservation() {
+            // Get updated reservation data from the form
+            let roomId = $("#update_room_id").val();
+            let contactNum = $("#update_contact_num").val();
+            let paymentMethod = $("#update_payment_method").val();
             let checkin = $("#update_checkin").val();
-            let checkin_time = $("#update_checkin_time").val();
+            let checkinTime = $("#update_checkin_time").val();
             let checkout = $("#update_checkout").val();
-            let checkout_time = $("#update_checkout_time").val(); // Fix typo in variable name
+            let checkoutTime = $("#update_checkout_time").val(); // Corrected variable name
+
+            if (roomId === "" || checkin === "" || checkout === "") {
+                $("#liveAlertPlaceholder").html(`<div class="alert alert-danger" role="alert">Please fill in all required fields.</div>`);
+                return; // Prevent further execution if validation fails
+            }
 
             // Make AJAX request to update_reservation.php
             $.ajax({
                 url: 'update_reservation.php',
                 method: 'POST',
                 data: {
-                    contact_num: contact_num,
-                    payment_method: payment_method,
+                    room_id: roomId,
+                    contact_num: contactNum,
+                    payment_method: paymentMethod,
                     checkin: checkin,
-                    checkin_time: checkin_time,
+                    checkin_time: checkinTime,
                     checkout: checkout,
-                    checkout_time: checkout_time
+                    checkout_time: checkoutTime
                 },
                 success: function(response) {
                     $("#liveAlertPlaceholder").html(`<div class="alert alert-success" role="alert">${response}</div>`);
-                    // Reload the page after a short delay
+                    $("#updateModal").modal('hide');
+
                     setTimeout(function() {
                         location.reload();
                     }, 2000);
+
                 },
                 error: function(xhr, status, error) {
                     $("#liveAlertPlaceholder").html(`<div class="alert alert-danger" role="alert">Error: ${xhr.responseText}</div>`);
@@ -356,12 +414,6 @@ $result = $conn->query($sql);
         }
     </script>
 
-
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
 
 </html>

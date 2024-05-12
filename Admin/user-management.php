@@ -1,287 +1,369 @@
-<!DOCTYPE html>
-<html>
+<?php
+session_start();
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Management</title>
-  <link rel="stylesheet" href="../style.css" />
-  <link rel="stylesheet" href="../bootstrap-5.3.2/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
-  <link rel="icon" type="image/x-icon" href="Images/Favicon2.png" />
-</head>
+if (isset($_GET['user_id'])) {
+    include '../config.php';
+    $user_id = $_GET['user_id'];
 
-<body>
-  <nav class="navbar">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
-        <img class="logo" src="../Images/logo.png" alt="logo" /><span class="sdash">
-          <?php
-          // Assuming you have started the session
-          session_start();
+    $user_query = "SELECT * FROM customer_and_admin WHERE user_id = $user_id";
+    $user_result = $conn->query($user_query);
 
-          // Check if the user is logged in
-          if (isset($_SESSION['username'])) {
-            // Fetch the username from the session or database
-            $username = $_SESSION['username']; // Assuming the username is stored in a session variable
-            echo "Welcome, $username";
-          } else {
-            echo "Welcome";
-          }
-          ?>
+    if ($user_result->num_rows > 0) {
+        $user_row = $user_result->fetch_assoc();
+?>
 
-        </span>
-      </a>
-      <form class="d-flex" role="search">
-        <div class="input-group">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-          <span class="input-group-text" id="basic-addon1">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </span>
-        </div>
-      </form>
+        <!DOCTYPE html>
+        <html>
 
-      <div class="dropdown" style="left: 190px">
-        <button class="btn rounded-circle btn-secondary">
-          <i class="fa-solid fa-comment-dots"></i>
-        </button>
-        <div class="content">
-          <a href="#">Inbox</a>
-        </div>
-      </div>
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Manage User - <?php echo $user_row['username']; ?></title>
+            <link rel="stylesheet" href="../style.css" />
+            <link rel="stylesheet" href="../bootstrap-5.3.2/dist/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+            <link rel="icon" type="image/x-icon" href="../Images/Favicon2.png" />
+        </head>
 
-      <div class="dropdown" style="left: 70px">
-        <button class="btn rounded-circle btn-secondary">
-          <i class="fa-solid fa-bell"></i>
-        </button>
-        <div class="content">
-          <a href="#">Notification</a>
-          <a href="#">Announcement</a>
-        </div>
-      </div>
+        <body>
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
+                        <img class="logo" src="../Images/logo.png" alt="logo" /><span class="sdash">
+                            <?php
 
-      <div class="dropdown" style="right: 50px">
-        <button class="btn rounded-circle btn-secondary" id="iconButton">
-          <i class="fa-solid fa-user"></i>
-        </button>
-        <div class="content">
-          <a href="admin-profile.php">Profile</a>
-          <a href="../firstpage.php">Logout</a>
-        </div>
-      </div>
-    </div>
-    </div>
-  </nav>
+                            // Check if the user is logged in
+                            if (isset($_SESSION['username'])) {
+                                // Fetch the username from the session or database
+                                $username = $_SESSION['username']; // Assuming the username is stored in a session variable
+                                echo "Welcome, $username";
+                            } else {
+                                echo "Welcome";
+                            }
+                            ?>
+                        </span>
+                    </a>
+                    <form class="d-flex" role="search">
+                        <div class="input-group">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </span>
+                        </div>
+                    </form>
 
-  <div class="dasht">
-    <h3>User Management</h3>
-  </div>
-  <div class="line"></div>
+                    <div class="dropdown" style="left: 150px">
+                        <button class="btn rounded-circle btn-secondary">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </button>
+                        <div class="content">
+                            <a href="#">Inbox</a>
+                        </div>
+                    </div>
 
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-4">
-        <div class="card" style="top: 90px; left: -405px">
-          <div style="background-color: rgb(36, 36, 116); color: white;" class="card-header">User Information</div>
-          <div style="margin-top: 10px"></div>
-          <img src="../Images/userid.webp" alt="user" style=" width: 60px; height: 60px; margin-left: 150px;">
-          <div class="text-center">
-            <label class="form-label" for="name">Ubald Jones L. Tuquib</label><br>
-            <label class="form-label" for="username">Ubald Jones</label><br>
-            <label class="form-label" for="contact">09631308925</label><br>
-            <label class="form-label" for="address">tuquibubald@gmail.com</label><br>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+                    <div class="dropdown" style="left: 50px">
+                        <button class="btn rounded-circle btn-secondary">
+                            <i class="fa-solid fa-bell"></i>
+                        </button>
+                        <div class="content">
+                            <a href="#">Notification</a>
+                            <a href="#">Announcement</a>
+                        </div>
+                    </div>
 
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-4">
-        <div class="card" style="top: 110px; left: -405px">
-          <div style="background-color: rgb(36, 36, 116); color: white;" class="card-header">Pay With</div>
-          <div style="margin-top: 10px"></div>
-          <ul>
-            <li>
-              <input type="radio" id="gcash" name="payment_method" value="gcash" disabled>
-              <label for="gcash">G-Cash</label>
-            </li>
-            <li>
-              <input type="radio" id="credit_card" name="payment_method" value="credit_card" disabled>
-              <label for="credit_card">Credit/Debit Card</label>
-            </li>
-            <li>
-              <input type="radio" id="cash" name="payment_method" value="cash" checked>
-              <label for="cash">Cash</label>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+                    <div class="dropdown" style="right: 50px">
+                        <button class="btn rounded-circle btn-secondary" id="iconButton">
+                            <i class="fa-solid fa-user"></i>
+                        </button>
+                        <div class="content">
+                            <a href="admin-profile.php">Profile</a>
+                            <a href="../User/firstpage.php">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
 
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-9">
-          <div class="card" style="top: -290px; left: 190px">
-            <div style="background-color: rgb(36, 36, 116); color: white;" class="card-header">Current Room Reservation</div>
+            <div class="container-fluid">
+                <div class="row">
+                    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link-active" href="admin-dashboard.php">
+                                    <button class="btn btn-block text-center"><i class="fas fa-tachometer-alt"></i>
+                                        Dashboard
+                                    </button>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link-active" href="admin-profile.php">
+                                    <button class="btn btn-block text-left">
+                                        Profile
+                                    </button>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link-active" href="admin_booking_manage.php">
+                                    <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-bed"></i>
+                                        Add Room
+                                    </button>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
+                        <div class="row">
+                            <div class="container-fluid">
+                                <div class="dasht" style="left: 250px;">
+                                    <h3>Reservation Management</h3>
+                                </div>
+                                <div class="line" style="left: 250px; width: 1000px"></div>
 
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Number</th>
-                  <th>Date</th>
-                  <th>Arrival</th>
-                  <th>Departure</th>
-                  <th>Amount</th>
-                  <th>Manage</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                  <td>1</td>
-                  <td>Feb 14, 2024</td>
-                  <td>9:00am - 12:00pm</td>
-                  <td>February 15, 2024</td>
-                  <td>500.00</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" title="Edit">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Delete">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
+                                <div class="container" style="margin-top: 60px;">
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-header">User Profile</div>
+                                            <div class="text-center">
+                                                <img style="width: 100px; height: 100px;" src="../Images/userid.webp" alt="" />
+                                                <p><?php echo $user_row['username']; ?></p>
+                                                <p>User ID: <?php echo $user_row['user_id']; ?></p>
+                                                <p>Email: <?php echo $user_row['email']; ?></p>
+                                                <p>Address: <?php echo $user_row['address']; ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <tr>
-                  <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                  <td>2</td>
-                  <td>Feb 14, 2024</td>
-                  <td>9:00am - 12:00pm</td>
-                  <td>February 15, 2024</td>
-                  <td>500.00</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" title="Edit">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Delete">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
+                                <div class="container" style="margin-top: 40px">
+                                    <div class="card w-100">
+                                        <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
+                                        <table id="reservationTable" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Type</th>
+                                                    <th>Number</th>
+                                                    <th>Arrival</th>
+                                                    <th>In Time</th>
+                                                    <th>Departure</th>
+                                                    <th>Out Time</th>
+                                                    <th>Status</th>
+                                                    <th>Amount</th>
+                                                    <th>Payment Method</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                // Fetch reservations for the user
+                                                $reservation_query = "SELECT * FROM reservation WHERE user_id = $user_id";
+                                                $reservation_result = $conn->query($reservation_query);
 
-                <tr>
-                  <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                  <td>2</td>
-                  <td>Feb 14, 2024</td>
-                  <td>9:00am - 12:00pm</td>
-                  <td>February 15, 2024</td>
-                  <td>500.00</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" title="Edit">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Delete">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
+                                                if ($reservation_result->num_rows > 0) {
+                                                    while ($row = $reservation_result->fetch_assoc()) {
+                                                        echo "<tr>";
+                                                        echo "<td>" . $row["rev_id"] .  "</td>";
+                                                        echo "<td>" . $row["room_type"] .  "</td>";
+                                                        echo "<td>" . $row["room_num"] . "</td>";
+                                                        echo "<td>" . $row["checkin"] . "</td>";
+                                                        echo "<td>" . $row["checkin_time"] . "</td>";
+                                                        echo "<td>" . $row["checkout"] . "</td>";
+                                                        echo "<td>" . $row["checkout_time"] . "</td>";
+                                                        echo "<td>" . $row["status"] . "</td>";
+                                                        echo "<td>" . $row["price"] . "</td>";
+                                                        echo "<td>" . $row["payment_method"] . "</td>";
+                                                        echo "<td>";
+                                                        echo "<button class='btn btn-info edit-btn' type='button' value='Edit' style='margin-right: 4px;' onclick='openUpdateModal(" . $row["room_id"] . ")'><i class='fa fa-pencil' ></i></button>";
+                                                        echo "<button class='btn btn-danger delete-btn' type='button' value='Delete' onclick='deleteUser(" . $row["rev_id"] . ")'><i class='fa fa-trash'></i></button>";
+                                                        echo "</td>";
+                                                        echo "</tr>";
+                                                    }
+                                                } else {
+                                                    echo "<tr><td colspan='9'>No reservations found.</td></tr>";
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                        <?php
+                    } else {
+                        echo "User not found.";
+                    }
+                } else {
+                    echo "User ID not provided.";
+                }
+                        ?>
 
-                <tr>
-                  <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                  <td>2</td>
-                  <td>Feb 14, 2024</td>
-                  <td>9:00am - 12:00pm</td>
-                  <td>February 15, 2024</td>
-                  <td>500.00</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" title="Edit">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Delete">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
+                        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Reservation Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Reservation form will be loaded dynamically here -->
+                                        <form action="formUpdate">
+                                            <input type="hidden" name="room_id" id="update_room_id" value="<?php echo $fetch['room_id']; ?>">
+                                            <input type="hidden" name="room_type" value="<?php echo $fetch['room_type']; ?>">
+                                            <input type="hidden" name="price" value="<?php echo $fetch['price']; ?>">
+                                            <input type="hidden" name="room_num" value="<?php echo $fetch['room_num']; ?>">
+                                            <!-- Additional input fields for reservation -->
+                                            <div class="mb-3">
+                                                <label for="contact" class="col-form-label">Contact Information:</label>
+                                                <input type="number" name="contact_num" id="update_contact_num" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="contact" class="col-form-label">Payment Method:</label>
+                                                <select class="form-control" name="payment_method" id="update_payment_method" required>
+                                                    <option value="" selected="" disabled="">Select Payment</option>
+                                                    <option value="G Cash">G Cash</option>
+                                                    <option value="E-Wallet">E-Wallet</option>
+                                                    <option value="Cash">Cash</option>
+                                                    <option value="Credit/Debit Card">Credit/Debit Card</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="date" class="col-form-label">Check In:</label>
+                                                <input type="date" name="checkin" id="update_checkin" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="time" class="col-form-label">Time</label>
+                                                <input type="time" name="checkin_time" id="update_checkin_time" class="form-control" required></input>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="date" class="col-form-label">Check out</label>
+                                                <input type="date" name="checkout" id="update_checkout" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="time" class="col-form-label">Time</label>
+                                                <input type="time" name="checkout_time" id="update_checkout_time" class="form-control" required></input>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="updateButton" onclick="updateReservation()">Save changes</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
-                <tr>
-                  <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                  <td>2</td>
-                  <td>Feb 14, 2024</td>
-                  <td>9:00am - 12:00pm</td>
-                  <td>February 15, 2024</td>
-                  <td>500.00</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" title="Edit">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Delete">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                  <td>2</td>
-                  <td>Feb 14, 2024</td>
-                  <td>9:00am - 12:00pm</td>
-                  <td>February 15, 2024</td>
-                  <td>500.00</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" title="Edit">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Delete">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td><i class="fa-solid fa-house"></i>Two Bed</td>
-                  <td>2</td>
-                  <td>Feb 14, 2024</td>
-                  <td>9:00am - 12:00pm</td>
-                  <td>February 15, 2024</td>
-                  <td>500.00</td>
-                  <td>
-                    <button class="btn btn-sm btn-primary" title="Edit">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Delete">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td><i class="fa-solid fa-money-bill"></i>Total</td>
-                  <td>P10,000.00</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="bu" style="margin-bottom: 10px;">
-              <a href="user-management.php">
-                <button style="width: 150px;" type="submit" class="btn btn-success">
-                  Save Update
-                </button>
-              </a>
+                            </div>
+                        </div>
+                    </main>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
+            <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
 
-    <div class="book" style="top: 690px;">
-      <a href="admin-dashboard.php">
-        <button style="width: 100px" type="submit" class="btn btn-success">
-          Ok
-        </button>
-    </div>
-</body>
+            <script>
+                $(document).ready(function() {
+                    $('#reservationTable').DataTable();
+                });
 
-</html>
+                function deleteUser(rev_id) {
+                    var confirmation = confirm("Are you sure you want to delete this data?");
+                    if (confirmation) {
+                        // Make AJAX request to delete_reservation.php
+                        $.ajax({
+                            url: '../User/delete_reservation.php',
+                            method: 'POST',
+                            data: {
+                                rev_id: rev_id
+                            },
+                            success: function(response) {
+                                // Reload the page
+
+                                $("#liveAlertPlaceholder").html(`<div class="alert alert-success" role="alert" style="margin-top: 20px;">${response}</div>`);
+                                // Display success message after a short delay
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000); // Adjust the delay time as needed
+                            },
+                            error: function(xhr, status, error) {
+                                // Display error message
+                                $("#liveAlertPlaceholder").html(`<div class="alert alert-danger" role="alert">Error: ${xhr.responseText}</div>`);
+                            }
+                        });
+                    }
+                }
+
+                function openUpdateModal(room_id) {
+                    $.ajax({
+                        url: '../User/get_reservation.php', // Assuming this PHP file retrieves reservation data
+                        method: 'POST',
+                        data: {
+                            room_id: room_id
+                        },
+                        success: function(response) {
+                            let reservation = JSON.parse(response);
+                            $("#update_room_id").val(reservation.room_id);
+                            $("#update_contact_num").val(reservation.contact_num);
+                            $("#update_payment_method").val(reservation.payment_method);
+                            $("#update_checkin").val(reservation.checkin);
+                            $("#update_checkin_time").val(reservation.checkin_time);
+                            $("#update_checkout").val(reservation.checkout);
+                            $("#update_checkout_time").val(reservation.checkout_time);
+                            $("#updateModal").modal('show');
+                        },
+                        error: function(xhr, status, error) {
+                            // Display error message
+                            console.error(xhr.responseText);
+                            alert("Failed to retrieve reservation data. Please try again.");
+                        }
+                    });
+                }
+
+                function updateReservation() {
+                    // Get updated reservation data from the form
+                    let roomId = $("#update_room_id").val();
+                    let contactNum = $("#update_contact_num").val();
+                    let paymentMethod = $("#update_payment_method").val();
+                    let checkin = $("#update_checkin").val();
+                    let checkinTime = $("#update_checkin_time").val();
+                    let checkout = $("#update_checkout").val();
+                    let checkoutTime = $("#update_checkout_time").val(); // Corrected variable name
+
+                    if (roomId === "" || checkin === "" || checkout === "") {
+                        $("#liveAlertPlaceholder").html(`<div class="alert alert-danger" role="alert">Please fill in all required fields.</div>`);
+                        return; // Prevent further execution if validation fails
+                    }
+
+                    // Make AJAX request to update_reservation.php
+                    $.ajax({
+                        url: '../User/update_reservation.php',
+                        method: 'POST',
+                        data: {
+                            room_id: roomId,
+                            contact_num: contactNum,
+                            payment_method: paymentMethod,
+                            checkin: checkin,
+                            checkin_time: checkinTime,
+                            checkout: checkout,
+                            checkout_time: checkoutTime
+                        },
+                        success: function(response) {
+                            $("#liveAlertPlaceholder").html(`<div class="alert alert-success" role="alert">${response}</div>`);
+                            $("#updateModal").modal('hide');
+
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+
+                        },
+                        error: function(xhr, status, error) {
+                            $("#liveAlertPlaceholder").html(`<div class="alert alert-danger" role="alert">Error: ${xhr.responseText}</div>`);
+                        }
+                    });
+                }
+            </script>
+
+        </body>
+
+        </html>

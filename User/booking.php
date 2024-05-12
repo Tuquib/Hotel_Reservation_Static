@@ -101,6 +101,13 @@ session_start();
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link-active" href="booking.php">
+                            <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-calendar-days"></i>
+                                Booking
+                            </button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link-active" href="Manage.php">
                             <button class="btn btn-block text-center"><i class="fa-solid fa-list-check"></i>
                                 Manage
@@ -123,13 +130,35 @@ session_start();
                         <div class="dasht" style="left: 250px;">
                             <h3>Online Booking</h3>
                         </div>
-                        <div class="line" style="left: 250px; width: 1000px"></div>
+                        <div class="line" style="left: 250px; width: 1100px"></div>
 
                         <div class="text-start">
                             <p style="margin-top: 10px;font-size: x-large;position: absolute; width: 186px; height: 23px; left: 250px;top: 100px;">Rooms</p>
                         </div>
 
-                        <div class="container" style="margin-top: 80px;">
+                        <div class="alert">
+                            <?php if (isset($_SESSION['success_message'])) : ?>
+                                <div class="alert alert-success" role="alert">
+                                    <?= $_SESSION['success_message'] ?>
+                                </div>
+                                <?php unset($_SESSION['success_message']); ?>
+                                <script>
+                                    document.querySelector('.alert-success').classList.add('temporary-message');
+                                </script>
+                            <?php endif; ?>
+
+                            <?php if (isset($_SESSION['error_message'])) : ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?= $_SESSION['error_message'] ?>
+                                </div>
+                                <?php unset($_SESSION['error_message']); ?>
+                                <script>
+                                    document.querySelector('.alert-danger').classList.add('temporary-message');
+                                </script>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="container" style="margin-top: 50px;">
                             <div class="popular__grid">
                                 <?php
                                 require_once '../config.php';
@@ -141,7 +170,7 @@ session_start();
                                 while ($fetch = $query->fetch_assoc()) {
                                     // Output the fetched data
                                 ?>
-                                    <div class="popular__card" style="width: 305px; height: 305px;">
+                                    <div class="popular__card">
                                         <img src="../Images/<?php echo $fetch['photo'] ?>" alt="popular hotel" />
                                         <div class="popular__content">
                                             <div class="popular__card__header">
@@ -165,15 +194,15 @@ session_start();
                                                 <div class="modal-body">
                                                     <form action="add_booking.php" method="post">
                                                         <!-- Hidden inputs to pass room data -->
-                                                        <input type="hidden" name="room_id" value="<?php echo $fetch['room_id']; ?>">
-                                                        <input type="hidden" name="room_type" value="<?php echo $fetch['room_type']; ?>">
-                                                        <input type="hidden" name="price" value="<?php echo $fetch['price']; ?>">
-                                                        <input type="hidden" name="room_num" value="<?php echo $fetch['room_num']; ?>">
+                                                        <input type="hidden" name="room_id" value="<?php echo $fetch['room_id']; ?>" required>
+                                                        <input type="hidden" name="room_type" value="<?php echo $fetch['room_type']; ?>" required>
+                                                        <input type="hidden" name="price" value="<?php echo $fetch['price']; ?>" required>
+                                                        <input type="hidden" name="room_num" value="<?php echo $fetch['room_num']; ?>" required>
 
                                                         <!-- Additional input fields for reservation -->
                                                         <div class="mb-3">
                                                             <label for="contact" class="col-form-label">Contact Information:</label>
-                                                            <input type="number" name="contact_num" class="form-control">
+                                                            <input type="number" name="contact_num" class="form-control" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="contact" class="col-form-label">Payment Method:</label>
@@ -187,24 +216,24 @@ session_start();
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="date" class="col-form-label">Check In:</label>
-                                                            <input type="date" name="checkin" class="form-control">
+                                                            <input type="date" name="checkin" class="form-control" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="time" class="col-form-label">Time</label>
-                                                            <input type="time" name="checkin_time" class="form-control"></input>
+                                                            <input type="time" name="checkin_time" class="form-control" required></input>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="date" class="col-form-label">Check out</label>
-                                                            <input type="date" name="checkout" class="form-control">
+                                                            <input type="date" name="checkout" class="form-control" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="time" class="col-form-label">Time</label>
-                                                            <input type="time" name="checkout_time" class="form-control"></input>
+                                                            <input type="time" name="checkout_time" class="form-control" required></input>
                                                         </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    <button type="submit" class="btn btn-primary">Book Now</button>
                                                 </div>
                                                 </form>
                                             </div>
@@ -216,60 +245,52 @@ session_start();
                                 ?>
                             </div>
                         </div>
-                        <div class="alert">
-                            <?php if (isset($_SESSION['success_message'])) : ?>
-                                <div class="alert alert-success" role="alert">
-                                    <?= $_SESSION['success_message'] ?>
-                                </div>
-                                <?php unset($_SESSION['success_message']); ?>
-                            <?php endif; ?>
+                        <div style="margin-bottom: 20px;"></div>
 
-                            <?php if (isset($_SESSION['error_message'])) : ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?= $_SESSION['error_message'] ?>
-                                </div>
-                                <?php unset($_SESSION['error_message']); ?>
-                            <?php endif; ?>
-                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
 
+
+
     <footer class="footer" id="contact">
         <div class="section__container footer__container">
             <div class="footer__col">
-                <h3>Malaybalay Air BnB Travellers Inn</h3>
-                <p>
+                <h3 style="color: black">Malaybalay Air BnB Travellers Inn</h3>
+                <p style="color: black">
                     With a user-friendly interface and a vast selection of hotels,
                     Malaybalay Air BnB Travellers Inn aims to provide a stress-free
                     experience for travelers seeking the perfect stay.
                 </p>
-                <p>
+                <p style="color: black">
                     You can contact us in our Social Media , Phone Number +639631308925
                 </p>
             </div>
             <div class="footer__col">
-                <h4>Hotel</h4>
-                <p>About Us</p>
-                <p>Contact Us</p>
+                <h4 style="color: black">Hotel</h4>
+                <p style="color: black">About Us</p>
+                <p style="color: black">Contact Us</p>
             </div>
             <div class="footer__col">
-                <h4>Legal</h4>
-                <p>FAQs</p>
-                <p>Terms & Conditions</p>
-                <p>Privacy Policy</p>
+                <h4 style="color: black">Legal</h4>
+                <p style="color: black">FAQs</p>
+                <p style="color: black">Terms & Conditions</p>
+                <p style="color: black">Privacy Policy</p>
             </div>
             <div class="footer__col">
-                <h4>Resources</h4>
-                <p>Social Media</p>
-                <p>Help Center</p>
-                <p>Partnerships</p>
+                <h4 style="color: black">Resources</h4>
+                <p style="color: black">Social Media</p>
+                <p style="color: black">Help Center</p>
+                <p style="color: black">Partnerships</p>
             </div>
         </div>
-        <div class="footer__bar">
+        <div class="footer__bar" style="color: black">
             Copyright © 2024 Ubald Jones L. Tuquib. All rights reserved.
         </div>
     </footer>
+
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

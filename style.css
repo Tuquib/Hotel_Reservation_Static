@@ -195,7 +195,7 @@ body {
   display: none;
   position: absolute;
   background-color: rgba(231, 224, 224, 0.984);
-  min-width: 200px;
+  min-width: 1rem;
   box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
 }
 
@@ -338,4 +338,12 @@ body {
 
 .current_table {
   align-items: first baseline;
+}
+
+.temporary-message {
+  transition: opacity 2s ease-in-out;
+}
+
+.temporary-message.fade-out {
+  opacity: 0;
 }

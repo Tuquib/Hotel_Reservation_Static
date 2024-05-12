@@ -1,3 +1,4 @@
+<!-- admin-reserve.php -->
 <?php
 
 session_start();
@@ -14,6 +15,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
+
+
 
 $sql = "SELECT * FROM reservation";
 $result = $conn->query($sql);
@@ -103,14 +106,14 @@ $result = $conn->query($sql);
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link-active" href="user-management.php">
+						<a class="nav-link-active" href="admin-profile.php">
 							<button class="btn btn-block text-left">
-								User-management
+								Profile
 							</button>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link-active" href="room-management.php">
+						<a class="nav-link-active" href="admin_booking_manage.php">
 							<button class="btn btn-block text-left">
 								Room Management
 							</button>
@@ -118,81 +121,18 @@ $result = $conn->query($sql);
 					</li>
 				</ul>
 			</nav>
+			</nav>
 			<main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
 				<div class="row">
 					<div class="container-fluid">
-						<div class="dasht">
+						<div class="dasht" style="left: 250px;">
 							<h3>Dashboard</h3>
 						</div>
-						<div class="line"></div>
+						<div class=" line" style="left: 250px; width: 1100px;"></div>
 
 						<div class="dashboard" style="margin-top: 70px">
-							<div class="card">
-								<div class="text-center">
-									<h2>Today's Arrival</h2>
-									<p>20 <span style="color: rgb(85, 192, 85)">↑3.15%</span></p>
-									(Last 7 hours)
-								</div>
-							</div>
-							<div class="card">
-								<div class="text-center">
-									<h2>Today's Departure</h2>
-									<p>20 <span style="color: rgb(85, 192, 85)">↑3.15%</span></p>
-									(Last 7 hours)
-								</div>
-							</div>
-							<div class="card">
-								<div class="text-center">
-									<h2>Today's Booked</h2>
-									<p>20 <span style="color: rgb(85, 192, 85)">↑3.15%</span></p>
-									(Last 7 hours)
-								</div>
-							</div>
-							<a href="admin-checker.php" style="text-decoration: none;">
-								<div class="card">
-									<div class="text-center">
-										<h2>Today's Room Available</h2>
-										<p>3 <span style="color: rgb(85, 192, 85)"><i class="fa-solid fa-bed"></i></span></p>
-										(Last 7 hours)
-									</div>
-								</div>
-							</a>
-							<div class="card">
-								<div class="text-center">
-									<h2>Total Booked</h2>
-									<p>20 <span style="color: rgb(85, 192, 85)">↑3.15%</span></p>
-									(Last 7 hours)
-								</div>
-							</div>
-							<div class="card">
-								<div class="text-center">
-									<h2>Staying</h2>
-									<p>20 <span style="color: rgb(85, 192, 85)">↑3.15%</span></p>
-									(Last 7 hours)
-								</div>
-							</div>
-							<div class="card">
-								<div class="text-center">
-									<h2>Customer Reviews Rates</h2>
-									<p style="margin-right: 47px">
-										4.5<span style="color: rgb(214, 214, 26)">★</span>
-									</p>
-								</div>
-							</div>
-							<div class="card">
-								<div class="text-center">
-									<h2>Monthly Revenue</h2>
-									<p>5,000 <span style="color: rgb(85, 192, 85)">↑50%</span></p>
-								</div>
-							</div>
-							<div class="card">
-								<div class="text-center">
-									<h2>Yearly Revenue</h2>
-									<p>5,000 <span style="color: rgb(85, 192, 85)">↑50%</span></p>
-								</div>
-							</div>
+							<!-- Your existing cards and content -->
 						</div>
-
 						<div style="margin-top: 30px"></div>
 
 						<?php
@@ -206,6 +146,11 @@ $result = $conn->query($sql);
 									<div class="card">
 										<div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
 										<table class="table table-bordered">
+											<div class="panel-body">
+												<a class="btn btn-success disabled"><span class="badge"></span> Pendings</a>
+												<a class="btn btn-info" href="admin-checkin.php"><span class="badge"></span> Check In</a>
+												<a class="btn btn-warning" href="admin-checkout.php"><i class="glyphicon glyphicon-eye-open"></i> Check Out</a>
+											</div>
 											<thead>
 												<tr>
 													<th>User ID</th>
@@ -214,7 +159,9 @@ $result = $conn->query($sql);
 													<th>Number</th>
 													<th>Arrival</th>
 													<th>Departure</th>
+													<th>Status</th> <!-- New column for Status -->
 													<th>Payment</th>
+													<th>Action</th> <!-- New column for Action -->
 												</tr>
 											</thead>
 											<tbody>
@@ -224,17 +171,37 @@ $result = $conn->query($sql);
 												?>
 													<tr>
 														<td><?php echo $row['user_id']; ?></td>
-														<td><?php echo $row['username']; ?></td>
+														<td><a style="text-decoration: none; color:black;" href="user-management.php?user_id=<?php echo $row['user_id']; ?>"><?php echo $row['username']; ?></a></td>
 														<td><?php echo $row['room_type']; ?></td>
 														<td><?php echo $row['room_num']; ?></td>
 														<td><?php echo $row['checkin']; ?></td>
 														<td><?php echo $row['checkout']; ?></td>
+														<td>
+															<?php
+															if ($row['status'] == '') {
+																echo '<span class="text-success">Pending</span>';
+															} else {
+																echo '<span class="' . (($row['status'] == 'Check In') ? 'text-primary' : 'text-danger') . '">' . $row['status'] . '</span>';
+															}
+															?>
+														</td>
+
 														<td><?php echo $row['price']; ?></td>
+														<td>
+															<!-- Check-in button -->
+															<a class="btn btn-info" href="admin-checkin.php?rev_id=<?php echo $row['rev_id']; ?>">Check In</a>
+
+
+															<!-- Discard button -->
+															<a class="btn btn-danger" href="admin-delete_reservation.php?rev_id=<?php echo $row['rev_id']; ?>">Discard</a>
+
+														</td>
 													</tr>
 												<?php
 												}
 												?>
 											</tbody>
+
 										</table>
 									</div>
 								</div>
@@ -245,73 +212,6 @@ $result = $conn->query($sql);
 							echo "No reservations found.";
 						}
 						?>
-
-						<!-- <div class="container">
-							<div class="row justify-content-center">
-								<div class="col-md-w-100">
-									<div class="card">
-										<div style="background-color: rgb(36, 36, 116); color: white" class="card-header">
-											Reservation Details
-										</div>
-										<table class="table table-hover">
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Type</th>
-													<th>Number</th>
-													<th>Date</th>
-													<th>Arrival</th>
-													<th>Departure</th>
-													<th>Payment</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="user"><a href="user-management.php" style="text-decoration: none; color: black;">Ubald Jones Tuquib</a></td>
-													<td>Two Bed</td>
-													<td>1</td>
-													<td>Feb 14, 2024</td>
-													<td>9:00am - 12:00pm</td>
-													<td>February 15, 2024 9:00am - 10:00am</td>
-													<td class="paid" style="color: rgb(85, 192, 85)">Paid</td>
-												</tr>
-
-												<tr>
-													<td>Jarell Portillas</td>
-													<td>Two Bed</td>
-													<td>1</td>
-													<td>Feb 14, 2024</td>
-													<td>9:00am - 12:00pm</td>
-													<td>February 15, 2024 9:00am - 10:00am</td>
-													<td class="paid" style="color: rgb(85, 192, 85)">Paid</td>
-												</tr>
-
-												<tr>
-													<td>Juan Tamad</td>
-													<td>Two Bed</td>
-													<td>1</td>
-													<td>Feb 14, 2024</td>
-													<td>9:00am - 12:00pm</td>
-													<td>February 15, 2024 9:00am - 10:00am</td>
-													<td class="pending" style="color: red">Pending</td>
-												</tr>
-
-												<tr>
-													<td>Filemon</td></a>
-													<td>Two Bed</td>
-													<td>1</td>
-													<td>Feb 14, 2024</td>
-													<td>9:00am - 12:00pm</td>
-													<td>February 15, 2024 9:00am - 10:00am</td>
-													<td class="pending" style="color: red">Pending</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div> -->
-
 					</div>
 				</div>
 			</main>

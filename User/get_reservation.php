@@ -3,19 +3,19 @@
 session_start();
 
 // Check if rev_id parameter is present
-if (isset($_POST['rev_id'])) {
+if (isset($_POST['room_id'])) {
     // Assuming rev_id is an integer, you may need to sanitize or validate the input
-    $rev_id = $_POST['rev_id'];
+    $room_id = $_POST['room_id'];
 
     // Include your database connection
     include '../config.php';
 
     // Prepare SQL statement to select reservation information
-    $sql = "SELECT * FROM reservation WHERE rev_id = ?";
+    $sql = "SELECT * FROM reservation WHERE room_id = ?";
 
     // Prepare and bind parameters to avoid SQL injection
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $rev_id);
+    $stmt->bind_param("i", $room_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -36,5 +36,5 @@ if (isset($_POST['rev_id'])) {
     $conn->close();
 } else {
     // If rev_id parameter is not provided, return an error message
-    echo json_encode(array('error' => 'Missing rev_id parameter'));
+    echo json_encode(array('error' => 'Missing room_id parameter'));
 }
