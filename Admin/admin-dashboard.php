@@ -88,7 +88,7 @@ $result = $conn->query($sql);
 				</button>
 				<div class="content">
 					<a href="admin-profile.php">Profile</a>
-					<a href="../firstpage.php">Logout</a>
+					<a href="../User/firstpage.php">Logout</a>
 				</div>
 			</div>
 		</div>
@@ -100,22 +100,22 @@ $result = $conn->query($sql);
 				<ul class="nav flex-column">
 					<li class="nav-item">
 						<a class="nav-link-active" href="admin-dashboard.php">
-							<button class="btn btn-block text-left">
+							<button class="btn btn-block text-center"><i class="fas fa-tachometer-alt"></i>
 								Dashboard
 							</button>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link-active" href="admin-profile.php">
-							<button class="btn btn-block text-left">
+							<button class="btn btn-block text-left"><i class="fa-solid fa-user"></i>
 								Profile
 							</button>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link-active" href="admin_booking_manage.php">
-							<button class="btn btn-block text-left">
-								Room Management
+							<button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-bed"></i>
+								Add Room
 							</button>
 						</a>
 					</li>
@@ -129,19 +129,13 @@ $result = $conn->query($sql);
 							<h3>Dashboard</h3>
 						</div>
 						<div class=" line" style="left: 250px; width: 1100px;"></div>
-
-						<div class="dashboard" style="margin-top: 70px">
-							<!-- Your existing cards and content -->
-						</div>
-						<div style="margin-top: 30px"></div>
-
 						<?php
 						// Assuming you have already connected to your database
 
 						// Check if there are any reservations
 						if ($result->num_rows > 0) {
 						?>
-							<div class="container" style="margin-top: 20px">
+							<div class="container" style="margin-top: 60px">
 								<div class="col-md-w-100">
 									<div class="card">
 										<div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>

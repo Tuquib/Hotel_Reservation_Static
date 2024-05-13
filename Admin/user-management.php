@@ -96,7 +96,7 @@ if (isset($_GET['user_id'])) {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link-active" href="admin-profile.php">
-                                    <button class="btn btn-block text-left">
+                                    <button class="btn btn-block text-left"><i class="fa-solid fa-user"></i>
                                         Profile
                                     </button>
                                 </a>
@@ -116,11 +116,11 @@ if (isset($_GET['user_id'])) {
                                 <div class="dasht" style="left: 250px;">
                                     <h3>Reservation Management</h3>
                                 </div>
-                                <div class="line" style="left: 250px; width: 1000px"></div>
+                                <div class="line" style="left: 250px; width: 1100px"></div>
 
                                 <div class="container" style="margin-top: 60px;">
                                     <div class="col-md-4">
-                                        <div class="card">
+                                        <div class="card" style="left: 350px;">
                                             <div class="card-header">User Profile</div>
                                             <div class="text-center">
                                                 <img style="width: 100px; height: 100px;" src="../Images/userid.webp" alt="" />
@@ -146,7 +146,6 @@ if (isset($_GET['user_id'])) {
                                                     <th>In Time</th>
                                                     <th>Departure</th>
                                                     <th>Out Time</th>
-                                                    <th>Status</th>
                                                     <th>Amount</th>
                                                     <th>Payment Method</th>
                                                     <th>Action</th>
@@ -155,7 +154,7 @@ if (isset($_GET['user_id'])) {
                                             <tbody>
                                                 <?php
                                                 // Fetch reservations for the user
-                                                $reservation_query = "SELECT * FROM reservation WHERE user_id = $user_id";
+                                                $reservation_query = "SELECT * FROM reservation WHERE user_id = $user_id AND status = ' '";
                                                 $reservation_result = $conn->query($reservation_query);
 
                                                 if ($reservation_result->num_rows > 0) {
@@ -168,7 +167,6 @@ if (isset($_GET['user_id'])) {
                                                         echo "<td>" . $row["checkin_time"] . "</td>";
                                                         echo "<td>" . $row["checkout"] . "</td>";
                                                         echo "<td>" . $row["checkout_time"] . "</td>";
-                                                        echo "<td>" . $row["status"] . "</td>";
                                                         echo "<td>" . $row["price"] . "</td>";
                                                         echo "<td>" . $row["payment_method"] . "</td>";
                                                         echo "<td>";

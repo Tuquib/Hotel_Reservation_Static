@@ -91,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="bootstrap-5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="signup.php" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
     <link rel="icon" type="image/x-icon" href="Images/Favicon2.png" />
     <title>Login</title>
 </head>
@@ -135,10 +136,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 }
                                 ?>
                                 <h1 class="ft">LOGIN</h1>
-                                <label class="label" for="femail" style="padding-right: 280px">Username</label>
-                                <input style="width: 300px" type="text" name="email" class="form-control" required />
-                                <label class="label" for="femail" style="padding-right: 220px">Password</label>
-                                <input style="width: 300px" id="password" type="password" name="password" class="form-control" required />
+                                <div style="margin-bottom: 20px;">
+                                    <img style="margin: auto; width: 50px; height: 50px;" src="Images/logo.png" alt="photo">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-envelope"></i></span>
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" name="email" id="floatingInputGroup1" placeholder="Email Address" required>
+                                        <label for="floatingInputGroup1">Email Address</label>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-key"></i></span>
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" name="password" id="floatingInputGroup1" placeholder="Password" required>
+                                        <label for="floatingInputGroup1">Password</label>
+                                    </div>
+                                </div>
+
                                 <p class="fw-bold">
                                     Forgot Password?<a href="forgot-password.php">Click Here</a>
                                 </p>

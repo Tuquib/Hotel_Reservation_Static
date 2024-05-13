@@ -66,7 +66,7 @@
                 </button>
                 <div class="content">
                     <a href="admin-profile.php">Profile</a>
-                    <a href="../firstpage.php">Logout</a>
+                    <a href="../User/firstpage.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -79,22 +79,22 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link-active" href="admin-dashboard.php">
-                            <button class="btn btn-block text-left">
+                            <button class="btn btn-block text-center"><i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link-active" href="admin-profile.php">
-                            <button class="btn btn-block text-left">
+                            <button class="btn btn-block text-left"><i class="fa-solid fa-user"></i>
                                 Profile
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link-active" href="admin_booking_manage.php">
-                            <button class="btn btn-block text-left">
-                                Room Management
+                            <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-bed"></i>
+                                Add Room
                             </button>
                         </a>
                     </li>

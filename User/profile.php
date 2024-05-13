@@ -66,7 +66,7 @@
                 </button>
                 <div class="content">
                     <a href="profile.php">Profile</a>
-                    <a href="../login.php">Logout</a>
+                    <a href="firstpage.php">Logout</a>
                 </div>
             </div>
         </div>

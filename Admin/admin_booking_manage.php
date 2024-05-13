@@ -102,7 +102,7 @@ $result = $conn->query($sql);
                 </button>
                 <div class="content">
                     <a href="admin-profile.php">Profile</a>
-                    <a href="../firstpage.php">Logout</a>
+                    <a href="../User/firstpage.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -115,22 +115,22 @@ $result = $conn->query($sql);
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link-active" href="admin-dashboard.php">
-                            <button class="btn btn-block text-left">
+                            <button class="btn btn-block text-center"><i class="fas fa-tachometer-alt"></i>
                                 Dashboard
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link-active" href="admin-profile.php">
-                            <button class="btn btn-block text-left">
+                            <button class="btn btn-block text-left"><i class="fa-solid fa-user"></i>
                                 Profile
                             </button>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link-active" href="admin_booking_manage.php">
-                            <button class="btn btn-block text-left">
-                                Room Management
+                            <button class="btn btn-block text-center"><i class="fa-sharp fa-solid fa-bed"></i>
+                                Add Room
                             </button>
                         </a>
                     </li>
@@ -148,10 +148,32 @@ $result = $conn->query($sql);
 
                         <div class="container">
 
+                            <div class="alert" style="margin-top: 30px;">
+                                <?php if (isset($_SESSION['success_message'])) : ?>
+                                    <div class="alert alert-success" role="alert">
+                                        <?= $_SESSION['success_message'] ?>
+                                    </div>
+                                    <?php unset($_SESSION['success_message']); ?>
+                                    <script>
+                                        document.querySelector('.alert-success').classList.add('temporary-message');
+                                    </script>
+                                <?php endif; ?>
+
+                                <?php if (isset($_SESSION['error_message'])) : ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <?= $_SESSION['error_message'] ?>
+                                    </div>
+                                    <?php unset($_SESSION['error_message']); ?>
+                                    <script>
+                                        document.querySelector('.alert-danger').classList.add('temporary-message');
+                                    </script>
+                                <?php endif; ?>
+                            </div>
+
                             <!-- manage rooms -->
 
                             <br />
-                            <div class="container-fluid" style="margin-top: 40px;">
+                            <div class="container-fluid" style="margin-top: 10px;">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <div class="alert alert-info">Transaction / Room</div>
@@ -179,8 +201,7 @@ $result = $conn->query($sql);
                                                     echo "<td>" . $row['price'] . "</td>";
                                                     echo "<td><img src='../Images/" . $row['photo'] . "' alt='Room Image' width='50' height='50'/></td>";
                                                     echo "<td>";
-                                                    echo "<a class='btn btn-info' >Edit</a>";
-                                                    echo "<a class='btn btn-danger' >Delete</a>";
+                                                    echo "<a class='btn btn-danger' href='delete_room.php?room_id=" . $row['room_id'] . "'>Delete</a>";
                                                     echo "</td>";
                                                     echo "</tr>";
                                                 }

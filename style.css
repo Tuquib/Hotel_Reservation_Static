@@ -195,7 +195,7 @@ body {
   display: none;
   position: absolute;
   background-color: rgba(231, 224, 224, 0.984);
-  min-width: 1rem;
+  width: 100%;
   box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
 }
 

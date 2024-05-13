@@ -139,7 +139,7 @@ $result = $conn->query($sql);
 
                         <?php
                         // Check if there are any reservations for the logged-in user
-                        $sql = "SELECT * FROM reservation WHERE username = '$username'";
+                        $sql = "SELECT * FROM reservation WHERE username = '$username' AND status = ' '";
                         $result = $conn->query($sql);
 
                         ?>

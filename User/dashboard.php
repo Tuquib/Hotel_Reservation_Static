@@ -72,6 +72,8 @@ $result = $conn->query($sql);
                     <i class="fa-solid fa-comment-dots"></i>
                 </button>
                 <div class="content" id="inboxLink">
+                    <a href="#">Philip Beronio have friend request</a>
+                    <a href="#">Message</a>
                     <a href="#">Message</a>
                 </div>
             </div>
@@ -203,14 +205,16 @@ $result = $conn->query($sql);
                                                 <tr>
                                                     <th>Type</th>
                                                     <th>Number</th>
-                                                    <th>Check In</th>
-                                                    <th>Check Out</th>
+                                                    <th>Arrival</th>
+                                                    <th>Departure</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
                                                 // Modify your SQL query to include a condition for 'check out' status
-                                                $sql = "SELECT * FROM reservation WHERE status = 'Check out'";
+                                                // Check if there are any reservations for the logged-in user
+
+                                                $sql = "SELECT * FROM reservation WHERE status = 'Check out' AND username = '$username'";
                                                 $result = $conn->query($sql);
 
                                                 // Check if there are any rows returned from the query
@@ -244,11 +248,9 @@ $result = $conn->query($sql);
                                     </div>
                                 </div>
 
-
-
                                 <?php
-                                // Check if there are any reservations for the logged-in user
-                                $sql = "SELECT * FROM reservation WHERE username = '$username'";
+                                // Check if there are any reservations for the logged-in user with status 'checkout'
+                                $sql = "SELECT * FROM reservation WHERE username = '$username' AND status = ' '";
                                 $result = $conn->query($sql);
 
                                 // Display reservations
@@ -285,11 +287,16 @@ $result = $conn->query($sql);
 
                                                     // Echo out the DataTables initialization code here
                                                     echo "<script>
-                                                 $(document).ready(function() {
-                                                     $('#reservationTable').DataTable(); // Initialize DataTables for your table
-                                                 });
-                                                 </script>";
+                            $(document).ready(function() {
+                                $('#reservationTable').DataTable(); // Initialize DataTables for your table
+                            });
+                        </script>";
+                                                } else {
+                                                    // If no reservations with status 'checkout' found
+                                                    echo "<tr><td colspan='5'>No current room reservations found.</td></tr>";
+                                                    echo "</tbody></table>";
                                                 }
+
                                                 // Check for errors in the SQL query execution
                                                 if (!$result) {
                                                     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -302,6 +309,7 @@ $result = $conn->query($sql);
                                         </table>
                                     </div>
                                 </div>
+
                             </div>
                         </section>
 
