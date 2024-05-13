@@ -52,23 +52,87 @@ if (isset($_GET['user_id'])) {
                         </div>
                     </form>
 
-                    <div class="dropdown" style="left: 150px">
-                        <button class="btn rounded-circle btn-secondary">
-                            <i class="fa-solid fa-comment-dots"></i>
-                        </button>
-                        <div class="content">
-                            <a href="#">Inbox</a>
-                        </div>
-                    </div>
-
-                    <div class="dropdown" style="left: 50px">
-                        <button class="btn rounded-circle btn-secondary">
-                            <i class="fa-solid fa-bell"></i>
-                        </button>
-                        <div class="content">
-                            <a href="#">Notification</a>
-                            <a href="#">Announcement</a>
-                        </div>
+                    <div class="dropdown" style="left: 130px">
+                        <ul class="nav user-menu">
+                            <li class="nav-item dropdown noti-dropdown">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <button class="btn rounded-circle btn-secondary">
+                                        <i class="fa-solid fa-bell"></i>
+                                    </button> <span class="badge badge-pill">3</span>
+                                </a>
+                                <div class="dropdown-menu notifications" style="width: 220px;">
+                                    <div class="topnav-dropdown-header">
+                                        <span class="notification-title">Notifications</span>
+                                    </div>
+                                    <div class="noti-content" style="max-height: 300px; overflow-y: auto;">
+                                        <ul class="notification-list">
+                                            <li class="notification-message">
+                                                <!-- Added style to ensure fixed height and enable scrolling -->
+                                                <a href="#">
+                                                    <div class="media">
+                                                        <span class="avatar avatar-sm">
+                                                        </span>
+                                                        <div class="media-body">
+                                                            <p class="noti-details">
+                                                                <span class="noti-title">International Software Inc</span>
+                                                                has sent you a invoice in the amount of
+                                                                <span class="noti-title">$218</span>
+                                                            </p>
+                                                            <p class="noti-time">
+                                                                <span class="notification-time">6 mins ago</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="notification-message">
+                                                <!-- Added style to ensure fixed height and enable scrolling -->
+                                                <a href="#">
+                                                    <div class="media">
+                                                        <span class="avatar avatar-sm">
+                                                            <!-- Removed image -->
+                                                        </span>
+                                                        <div class="media-body">
+                                                            <p class="noti-details">
+                                                                <span class="noti-title">Mercury Software Inc</span>
+                                                                added a new product
+                                                                <span class="noti-title">Apple MacBook Pro</span>
+                                                            </p>
+                                                            <p class="noti-time">
+                                                                <span class="notification-time">12 mins ago</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="notification-message">
+                                                <!-- Added style to ensure fixed height and enable scrolling -->
+                                                <a href="#">
+                                                    <div class="media">
+                                                        <span class="avatar avatar-sm">
+                                                            <!-- Removed image -->
+                                                        </span>
+                                                        <div class="media-body">
+                                                            <p class="noti-details">
+                                                                <span class="noti-title">Philip Beronio</span>
+                                                                sent a cancelation request
+                                                                <span class="noti-title">Book a Room</span>
+                                                            </p>
+                                                            <p class="noti-time">
+                                                                <span class="notification-time">12 mins ago</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="topnav-dropdown-footer">
+                                        <a href="#">View all Notifications</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
 
                     <div class="dropdown" style="right: 50px">

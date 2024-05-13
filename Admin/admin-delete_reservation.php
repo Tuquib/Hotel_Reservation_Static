@@ -13,10 +13,6 @@ ob_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Include necessary files and start session
-// include '../config.php';
-// session_start();
-
 // Check if the rev_id parameter is set
 if (isset($_GET['rev_id'])) {
     // Include config file if necessary

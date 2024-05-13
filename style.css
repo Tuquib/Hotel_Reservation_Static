@@ -71,7 +71,7 @@ body {
   width: 500px;
   height: 23px;
   left: 100px;
-  top: 72px;
+  top: 80px;
 
   font-family: "Poppins", sans-serif;
   font-style: normal;
@@ -89,7 +89,7 @@ body {
   width: 1180px;
   height: 0px;
   left: 50px;
-  top: 105px;
+  top: 112px;
 
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
@@ -195,7 +195,7 @@ body {
   display: none;
   position: absolute;
   background-color: rgba(231, 224, 224, 0.984);
-  width: 100%;
+  min-width: 1rem;
   box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
 }
 

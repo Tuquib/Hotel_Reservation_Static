@@ -50,30 +50,66 @@
             <h2>Rooms</h2>
         </div>
         <div class="popular__grid">
-            <?php
-            session_start();
-            require_once '../config.php';
-
-            // Fetch data from the rooms table
-            $query = $conn->query("SELECT * FROM `rooms` ORDER BY `price` ASC") or die(mysqli_error($conn));
-
-            // Loop through each fetched row
-            while ($fetch = $query->fetch_assoc()) {
-                // Output the fetched data
-            ?>
-                <div class="popular__card">
-                    <img src="../Images/<?php echo $fetch['photo'] ?>" alt="popular hotel" />
-                    <div class="popular__content">
-                        <div class="popular__card__header">
-                            <h4 id="room_type"><?php echo $fetch['room_type'] ?></h4>
-                            <h4 id="price"> P<?php echo $fetch['price'] ?></h4>
-                        </div>
-                        <p id="room_num"><?php echo $fetch['room_num'] ?></p>
+            <div class="popular__card">
+                <img src="../Images/Bed1.jpg" alt="popular hotel" />
+                <div class="popular__content">
+                    <div class="popular__card__header">
+                        <h4>Supreme</h4>
+                        <h4>P2500</h4>
                     </div>
+                    <p>Room 1</p>
                 </div>
-            <?php
-            }
-            ?>
+            </div>
+            <div class="popular__card">
+                <img src="../Images/Back2.jpg" alt="popular hotel" />
+                <div class="popular__content">
+                    <div class="popular__card__header">
+                        <h4>Classic</h4>
+                        <h4>P1500</h4>
+                    </div>
+                    <p>Room 2</p>
+                </div>
+            </div>
+            <div class="popular__card">
+                <img src="../Images/Bed3.jpg" alt="popular hotel" />
+                <div class="popular__content">
+                    <div class="popular__card__header">
+                        <h4>Standard</h4>
+                        <h4>P2000</h4>
+                    </div>
+                    <p>Room 3</p>
+                </div>
+            </div>
+            <div class="popular__card">
+                <img src="../Images/Bed1.jpg" alt="popular hotel" />
+                <div class="popular__content">
+                    <div class="popular__card__header">
+                        <h4>Superior</h4>
+                        <h4>P2500</h4>
+                    </div>
+                    <p>Room 4</p>
+                </div>
+            </div>
+            <div class="popular__card">
+                <img src="../Images/Back2.jpg" alt="popular hotel" />
+                <div class="popular__content">
+                    <div class="popular__card__header">
+                        <h4>Suite</h4>
+                        <h4>P1500</h4>
+                    </div>
+                    <p>Room 5</p>
+                </div>
+            </div>
+            <div class="popular__card">
+                <img src="../Images/Bed3.jpg" alt="popular hotel" />
+                <div class="popular__content">
+                    <div class="popular__card__header">
+                        <h4>Deluxe</h4>
+                        <h4>P2000</h4>
+                    </div>
+                    <p>Room 6</p>
+                </div>
+            </div>
         </div>
     </section>
 

@@ -24,7 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE customer_and_admin SET password = '$hashed_new_password' WHERE email = '$email'";
         if ($conn->query($sql) === TRUE) {
             // Optionally, you can display a success message to the user
-            echo '<script>alert("Password updated successfully. You can now login with your new password.");</script>';
+            echo '<script>alert("Password updated successfully. You can now login with your new password.");';
+            echo 'window.location.href = "login.php";</script>'; // Redirect to login.php 
         } else {
             // Passwords don't match, display an error message to the user
             echo '<script>alert("Error of updating the password. Please try again.");</script>';
