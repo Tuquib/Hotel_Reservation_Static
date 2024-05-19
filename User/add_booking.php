@@ -32,13 +32,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $checkout_time = $_POST['checkout_time'];
 
     // Check if the reservation for this date range already exists
-    $sql = "SELECT * FROM reservation WHERE checkin = '$checkin' AND checkout = '$checkout'";
+    $sql = "SELECT * FROM reservation 
+    WHERE room_type = '$room_type' 
+    AND room_num = '$room_num' 
+    AND (
+        (checkin BETWEEN '$checkin' AND '$checkout') 
+        OR 
+        (checkout BETWEEN '$checkin' AND '$checkout')
+    )";
     $result = $conn->query($sql);
 
 
     if ($result->num_rows > 0) {
         // Date range already exists, set error message and redirect
-        $_SESSION['error_message'] = "Reservation for this date range already exists.";
+        $_SESSION['error_message'] = "Sorry, the selected room is not available for the specified dates. Please choose another room or adjust your reservation dates.";
         header("Location: booking.php");
         exit();
     } else {

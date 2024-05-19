@@ -199,7 +199,7 @@ if (isset($_GET['user_id'])) {
 
                                 <div class="container" style="margin-top: 40px">
                                     <div class="card w-100">
-                                        <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
+                                        <div class="card-header" style="background-color: #e1dada;"><?php echo $user_row['username']; ?> Room Reservation</a></div>
                                         <table id="reservationTable" class="table table-bordered">
                                             <thead>
                                                 <tr>

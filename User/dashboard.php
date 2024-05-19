@@ -263,7 +263,7 @@ $result = $conn->query($sql);
                             <div class="container" style="margin-top: 40px;">
                                 <div class="col-md-4" style="width: 100%;">
                                     <div class="card">
-                                        <div class="card-header">Reservation History</div>
+                                        <div class="card-header" style="background-color: #e1dada;">Reservation History</div>
                                         <table id="reservationHistoryTable" class="table table-bordered">
                                             <thead>
                                                 <tr>
@@ -322,7 +322,7 @@ $result = $conn->query($sql);
 
                                 <div class="col-md-8" style="width: 100%; margin-top: 20px;">
                                     <div class="card" style="margin-bottom:40px;">
-                                        <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
+                                        <div class="card-header" style="background-color: #e1dada;">Current Room Reservation</a></div>
                                         <table id="reservationTable" class="table table-bordered" style="width: 100%;">
                                             <thead>
                                                 <tr>

@@ -1,7 +1,4 @@
-<!-- admin-checkout.php -->
-
 <?php
-
 session_start();
 
 $servername = "localhost";
@@ -12,28 +9,82 @@ $dbname = "malaybalay_hotel_reservation";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check if the rev_id parameter is present in the URL
-if (isset($_GET['rev_id'])) {
-    // Get the reservation ID from the URL
-    $rev_id = $_GET['rev_id'];
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    // Update the status of the reservation to "Check Out" in the database
-    $update_sql = "UPDATE reservation SET status = 'Check Out' WHERE rev_id = $rev_id";
-    if ($conn->query($update_sql) === TRUE) {
-        // Redirect to the same page to prevent multiple updates on page refresh
-        header("Location: admin-checkout.php");
-        exit();
+if (isset($_GET['room_id'])) {
+    $room_id = $_GET['room_id'];
+
+    // Fetch room details based on room_id
+    $sql = "SELECT * FROM rooms WHERE room_id = $room_id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $room_type = $row['room_type'];
+        $price = $row['price'];
+        $photo = $row['photo'];
     } else {
-        echo "Error updating record: " . $conn->error;
+        // Room not found, handle error
+        $_SESSION['error_message'] = "Room not found.";
+        header("Location: admin_booking_manage.php");
+        exit();
+    }
+} else {
+    // No room_id provided, handle error
+    $_SESSION['error_message'] = "Room ID not provided.";
+    header("Location: admin_booking_manage.php");
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Handle form submission for updating room details
+    // Retrieve updated values from the form
+    $updated_room_type = $_POST['room_type'];
+    $updated_price = $_POST['price'];
+
+    // Check if a new photo is uploaded
+    if ($_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+        $photo_tmp_name = $_FILES['photo']['tmp_name'];
+        $photo_name = $_FILES['photo']['name'];
+        $photo_path = "../Images/" . $photo_name;
+
+        // Move the uploaded file to the destination directory
+        if (move_uploaded_file($photo_tmp_name, $photo_path)) {
+            // Update room details in the database
+            $update_sql = "UPDATE rooms SET room_type='$updated_room_type', price='$updated_price', photo='$photo_name' WHERE room_id=$room_id";
+            if ($conn->query($update_sql) === TRUE) {
+                $_SESSION['success_message'] = "Room updated successfully.";
+                header("Location: admin_booking_manage.php");
+                exit();
+            } else {
+                $_SESSION['error_message'] = "Error updating room: " . $conn->error;
+                header("Location: admin_booking_manage.php");
+                exit();
+            }
+        } else {
+            $_SESSION['error_message'] = "Error uploading photo.";
+            header("Location: admin_booking_manage.php");
+            exit();
+        }
+    } else {
+        // No new photo uploaded, update room details without changing the photo
+        $update_sql = "UPDATE rooms SET room_type='$updated_room_type', price='$updated_price' WHERE room_id=$room_id";
+        if ($conn->query($update_sql) === TRUE) {
+            $_SESSION['success_message'] = "Room updated successfully.";
+            header("Location: admin_booking_manage.php");
+            exit();
+        } else {
+            $_SESSION['error_message'] = "Error updating room: " . $conn->error;
+            header("Location: admin_booking_manage.php");
+            exit();
+        }
     }
 }
 
-// Fetch all reservations
-$sql = "SELECT * FROM reservation";
-$result = $conn->query($sql);
-
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -41,14 +92,19 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
+    <title>Edit Room</title>
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../bootstrap-5.3.2/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="../Images/Favicon2.png" />
+    <!-- Add your CSS links here -->
 </head>
 
 <body>
+
     <nav class="navbar">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
@@ -197,112 +253,45 @@ $result = $conn->query($sql);
                     </li>
                 </ul>
             </nav>
+            </nav>
             <main role="main" class="col-md-5 ml-sm-auto col-lg-10 px-4">
                 <div class="row">
                     <div class="container-fluid">
-                        <div class="dasht" style="left: 250px;">
-                            <h3>Dashboard</h3>
-                        </div>
-                        <div class=" line" style="left: 250px; width: 1100px;"></div>
+                        <div class="d-flex align-items-center justify-text-center" style="min-height: 100vh; margin: 0">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 mx-auto">
+                                        <div class="card text-center" style="width: 21rem">
+                                            <div class="card-body">
+                                                <h1 class="ft">Edit Room</h1>
+                                                <form method="post" enctype="multipart/form-data">
+                                                    <label for="roomType">Room Type:</label>
+                                                    <input class="form-control" type="text" id="roomType" name="room_type" value="<?php echo $room_type; ?>" required><br>
 
-                        <div class="container" style="margin-top: 60px">
-                            <div class="col-md-w-100">
-                                <div class="card">
-                                    <div class="card-header" style="background-color: #e1dada;">Users Room Reservation</a></div>
-                                    <table id="reservationTable" class="table table-bordered">
-                                        <div class="panel-body">
-                                            <a class="btn btn-success" href="admin-dashboard.php"><span class="badge"></span> Pendings</a>
-                                            <a class="btn btn-info" href="admin-checkin.php"><span class="badge"></span> Check In</a>
-                                            <a class="btn btn-warning disabled" href="admin-checkout.php"><i class="glyphicon glyphicon-eye-open"></i> Check Out</a>
+                                                    <label for="price">Price:</label>
+                                                    <input class="form-control" type="number" id="price" name="price" value="<?php echo $price; ?>" required><br>
+
+                                                    <label for="photo">Update Photo:</label>
+                                                    <input class="form-control" type="file" id="photo" name="photo"><br>
+
+                                                    Display the current photo
+                                                    <label>Current Photo:</label><br>
+                                                    <img src="../Images/<?php echo $photo; ?>" alt="Current Room Photo" width="200"><br><br>
+
+                                                    <button style="width: 150px" type="submit" value="Update" class="btn btn-primary">
+                                                        Update</button><br />
+                                                </form>
+                                            </div>
                                         </div>
-                                        <thead>
-                                            <tr>
-                                                <th>User ID</th>
-                                                <th>Name</th>
-                                                <th>Type</th>
-                                                <th>Number</th>
-                                                <th>Arrival</th>
-                                                <th>Departure</th>
-                                                <th>Days</th> <!-- New column for Days -->
-                                                <th>Status</th>
-                                                <th>Payment</th>
-                                                <th>Paid</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            // Check if there are any reservations
-                                            if ($result->num_rows > 0) {
-                                                // Fetch and display each reservation
-                                                while ($row = $result->fetch_assoc()) {
-                                                    // Calculate the number of days between check-in and check-out dates
-                                                    $arrival = strtotime($row['checkin']);
-                                                    $departure = strtotime($row['checkout']);
-                                                    $days = floor(($departure - $arrival) / (60 * 60 * 24));
-
-                                            ?>
-                                                    <tr>
-                                                        <td><?php echo $row['user_id']; ?></td>
-                                                        <td><a style="text-decoration: none; color:black;" href="user-management.php?user_id=<?php echo $row['user_id']; ?>"><?php echo $row['username']; ?></a></td>
-                                                        <td><?php echo $row['room_type']; ?></td>
-                                                        <td><?php echo $row['room_num']; ?></td>
-                                                        <td><?php echo $row['checkin']; ?></td>
-                                                        <td><?php echo $row['checkout']; ?></td>
-                                                        <td><?php echo $days; ?></td> <!-- Display the calculated days -->
-                                                        <td>
-                                                            <?php
-                                                            if ($row['status'] == '') {
-                                                                echo '<span class="text-success">Pending</span>';
-                                                            } else {
-                                                                echo '<span class="' . (($row['status'] == 'Check In') ? 'text-primary' : 'text-danger') . '">' . $row['status'] . '</span>';
-                                                            }
-                                                            ?>
-
-                                                        </td>
-
-
-                                                        <td><?php echo $row['price']; ?></td>
-                                                        <td><?php echo $row['payment_method']; ?></td>
-
-                                                    </tr>
-                                                <?php
-                                                }
-                                                echo "</tbody></table>";
-                                                echo "<script>
-                                                $(document).ready(function() {
-                                                    $('#reservationTable').DataTable(); // Initialize DataTables for your table
-                                                });
-                                            </script>";
-                                                ?>
-                                        </tbody>
-
-
-                                    </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    <?php
-                                            } else {
-                                                echo "<tr><td colspan='5'>No current room reservations found.</td></tr>";
-                                                echo "</tbody></table>";
-                                            }
-                    ?>
-
-
-
                     </div>
                 </div>
             </main>
         </div>
     </div>
-
-
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
 
 </html>

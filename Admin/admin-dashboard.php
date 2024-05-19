@@ -193,40 +193,35 @@ $result = $conn->query($sql);
 							<h3>Dashboard</h3>
 						</div>
 						<div class=" line" style="left: 250px; width: 1100px;"></div>
-						<?php
-						// Assuming you have already connected to your database
-
-						// Check if there are any reservations
-						if ($result->num_rows > 0) {
-						?>
-							<div class="container" style="margin-top: 60px">
-								<div class="col-md-w-100">
-									<div class="card">
-										<div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
-										<table class="table table-bordered">
-											<div class="panel-body">
-												<a class="btn btn-success disabled"><span class="badge"></span> Pendings</a>
-												<a class="btn btn-info" href="admin-checkin.php"><span class="badge"></span> Check In</a>
-												<a class="btn btn-warning" href="admin-checkout.php"><i class="glyphicon glyphicon-eye-open"></i> Check Out</a>
-											</div>
-											<thead>
-												<tr>
-													<th>User ID</th>
-													<th>Name</th>
-													<th>Type</th>
-													<th>Number</th>
-													<th>Arrival</th>
-													<th>Departure</th>
-													<th>Status</th> <!-- New column for Status -->
-													<th>Payment</th>
-													<th>Action</th> <!-- New column for Action -->
-												</tr>
-											</thead>
-											<tbody>
-												<?php
+						<div class="container" style="margin-top: 60px">
+							<div class="col-md-w-100">
+								<div class="card">
+									<div class="card-header" style="background-color: #e1dada;">Users Room Reservation</a></div>
+									<table id="reservationDashTable" class="table table-bordered">
+										<div class="panel-body">
+											<a class="btn btn-success disabled"><span class="badge"></span> Pendings</a>
+											<a class="btn btn-info" href="admin-checkin.php"><span class="badge"></span> Check In</a>
+											<a class="btn btn-warning" href="admin-checkout.php"><i class="glyphicon glyphicon-eye-open"></i> Check Out</a>
+										</div>
+										<thead>
+											<tr>
+												<th>User ID</th>
+												<th>Name</th>
+												<th>Type</th>
+												<th>Number</th>
+												<th>Arrival</th>
+												<th>Departure</th>
+												<th>Status</th> <!-- New column for Status -->
+												<th>Payment</th>
+												<th>Action</th> <!-- New column for Action -->
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											if ($result->num_rows > 0) {
 												// Fetch and display each reservation
 												while ($row = $result->fetch_assoc()) {
-												?>
+											?>
 													<tr>
 														<td><?php echo $row['user_id']; ?></td>
 														<td><a style="text-decoration: none; color:black;" href="user-management.php?user_id=<?php echo $row['user_id']; ?>"><?php echo $row['username']; ?></a></td>
@@ -257,31 +252,38 @@ $result = $conn->query($sql);
 													</tr>
 												<?php
 												}
-												?>
-											</tbody>
+												echo "</tbody></table>";
 
-										</table>
-									</div>
+												echo "<script>
+												$(document).ready(function() {
+													$('#reservaDashtionTable').DataTable(); // Initialize DataTables for your table
+												});
+											</script>";
+												?>
+										</tbody>
+
+									</table>
 								</div>
 							</div>
-						<?php
-						} else {
-							// If no reservations found
-							echo "No reservations found.";
-						}
-						?>
+						</div>
+					<?php
+											} else {
+												echo "<tr><td colspan='5'>No current room reservations found.</td></tr>";
+												echo "</tbody></table>";
+											}
+					?>
 					</div>
 				</div>
 			</main>
 		</div>
 	</div>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
-	<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
-
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
 
 </html>

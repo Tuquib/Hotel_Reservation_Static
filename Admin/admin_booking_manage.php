@@ -267,6 +267,7 @@ $result = $conn->query($sql);
                                                     echo "<td>" . $row['price'] . "</td>";
                                                     echo "<td><img src='../Images/" . $row['photo'] . "' alt='Room Image' width='50' height='50'/></td>";
                                                     echo "<td>";
+                                                    echo "<a class='btn btn-info edit-btn'href='edit_room.php?room_id=" . $row['room_id'] . "'>Edit</a>";
                                                     echo "<a class='btn btn-danger' href='delete_room.php?room_id=" . $row['room_id'] . "'>Delete</a>";
                                                     echo "</td>";
                                                     echo "</tr>";

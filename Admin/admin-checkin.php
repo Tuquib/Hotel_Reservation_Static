@@ -207,43 +207,41 @@ if (isset($_GET['rev_id'])) {
                         </div>
                         <div class="line" style="left: 250px; width: 1100px;"></div>
 
-                        <?php
-                        // Check if there are any reservations
-                        if ($result->num_rows > 0) { //line 150 Warning: Undefined variable $result
-                        ?>
-                            <div class="container" style="margin-top:60px">
-                                <div class="col-md-w-100">
-                                    <div class="card">
-                                        <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
-                                        <div class="panel-body">
-                                            <a class="btn btn-success" href="admin-dashboard.php"><span class="badge"></span> Pendings</a>
-                                            <a class="btn btn-info disabled" href="admin-checkin.php"><span class="badge"></span> Check In</a>
-                                            <a class="btn btn-warning" href="admin-checkout.php"><i class="glyphicon glyphicon-eye-open"></i> Check Out</a>
-                                        </div>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>User ID</th>
-                                                    <th>Name</th>
-                                                    <th>Type</th>
-                                                    <th>Number</th>
-                                                    <th>Arrival</th>
-                                                    <th>Departure</th>
-                                                    <th>Days</th> <!-- New column for Days -->
-                                                    <th>Status</th>
-                                                    <th>Payment</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
+                        <div class="container" style="margin-top:60px">
+                            <div class="col-md-w-100">
+                                <div class="card">
+                                    <div class="card-header" style="background-color: #e1dada;">Users Room Reservation</a></div>
+                                    <div class="panel-body">
+                                        <a class="btn btn-success" href="admin-dashboard.php"><span class="badge"></span> Pendings</a>
+                                        <a class="btn btn-info disabled" href="admin-checkin.php"><span class="badge"></span> Check In</a>
+                                        <a class="btn btn-warning" href="admin-checkout.php"><i class="glyphicon glyphicon-eye-open"></i> Check Out</a>
+                                    </div>
+                                    <table id="reservationTable" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>User ID</th>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Number</th>
+                                                <th>Arrival</th>
+                                                <th>Departure</th>
+                                                <th>Days</th> <!-- New column for Days -->
+                                                <th>Status</th>
+                                                <th>Payment</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            // Check if there are any reservations
+                                            if ($result->num_rows > 0) {
                                                 // Fetch and display each reservation
                                                 while ($row = $result->fetch_assoc()) {
                                                     // Calculate the number of days between check-in and check-out dates
                                                     $arrival = strtotime($row['checkin']);
                                                     $departure = strtotime($row['checkout']);
                                                     $days = floor(($departure - $arrival) / (60 * 60 * 24));
-                                                ?>
+                                            ?>
                                                     <tr>
                                                         <td><?php echo $row['user_id']; ?></td>
                                                         <td><a style="text-decoration: none; color:black;" href="user-management.php?user_id=<?php echo $row['user_id']; ?>"><?php echo $row['username']; ?></a></td>
@@ -277,32 +275,37 @@ if (isset($_GET['rev_id'])) {
                                                     </tr>
                                                 <?php
                                                 }
+                                                echo "</tbody></table>";
+                                                echo "<script>
+                                                $(document).ready(function() {
+                                                    $('#reservationTable').DataTable(); // Initialize DataTables for your table
+                                                });
+                                            </script>";
                                                 ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+                        </div>
 
-                        <?php
-                        } else {
-                            // If no reservations found
-                            echo "No reservations found.";
-                        }
-                        ?>
+                    <?php
+                                            } else {
+                                                echo "<tr><td colspan='5'>No current room reservations found.</td></tr>";
+                                                echo "</tbody></table>";
+                                            }
+                    ?>
                     </div>
                 </div>
             </main>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
-
-
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> <!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> <!-- DataTables Bootstrap 4 JS -->
 
 </html>

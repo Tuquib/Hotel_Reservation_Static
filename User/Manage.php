@@ -211,7 +211,7 @@ $result = $conn->query($sql);
                         <div class="container" style="margin-top: 60px">
                             <div class="card w-100">
                                 <div class="card">
-                                    <div class="card-header"><a href="Manage.php" style="text-decoration: none; color: black;">Current Room Reservation</a></div>
+                                    <div class="card-header" style="background-color: #e1dada;">Current Room Reservation</a></div>
                                     <table id="reservationTable" class="table table-bordered">
                                         <thead>
                                             <tr>
